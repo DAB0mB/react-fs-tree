@@ -15,19 +15,22 @@
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
     "babel-polyfill": "^6.26.0",
     "babel-preset-es2017": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
     "eslint": "^5.1.0",
     "eslint-loader": "^2.1.0",
     "eslint-plugin-react": "^7.11.1",
+    "prop-types": "^15.6.2",
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2",
     "webpack": "^4.16.1",
     "webpack-cli": "^3.1.0",
     "webpack-node-externals": "^1.7.2"
   },
   "peerDependencies": {
+    "prop-types": "*",
     "react": "*",
     "react-dom": "*"
   },
-  "dependencies": {
-    "babel-preset-react": "^6.24.1"
-  }
+  "dependencies": {}
 }

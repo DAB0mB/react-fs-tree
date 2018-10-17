@@ -7,7 +7,7 @@ import Shapes from './shapes'
 class FSTree extends React.Component {
   static propTypes = {
     depth: PropTypes.number,
-    tree: PropTypes.arrayOf(Shapes.Node),
+    tree: PropTypes.arrayOf(Shapes.Node).isRequired,
     onSelect: PropTypes.func,
     onDeselect: PropTypes.func,
     onCollapse: PropTypes.func,

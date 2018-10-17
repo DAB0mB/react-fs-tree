@@ -9,7 +9,7 @@ import Shapes from './shapes'
 class FSNode extends React.Component {
   static propTypes = {
     depth: PropTypes.number,
-    node: Shapes.Node,
+    node: Shapes.Node.isRequired,
     onSelect: PropTypes.func,
     onDeselect: PropTypes.func,
     onCollapse: PropTypes.func,
