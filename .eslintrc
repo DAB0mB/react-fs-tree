@@ -1,5 +1,9 @@
 {
   "env": { "es6": true, "browser": true },
-  "extends": "eslint:recommended",
-  "parser": "babel-eslint"
+  "extends": ["eslint:recommended", "plugin:react/recommended"],
+  "parser": "babel-eslint",
+  "rules": {
+    "react/no-find-dom-node": 0,
+    "react/no-deprecated": 0,
+  }
 }

@@ -9,7 +9,7 @@ module.exports = {
   ],
   output: {
     path: path.resolve(__dirname, 'build'),
-    filename: 'guilt.js',
+    filename: 'react-fs-tree.js',
     library: '',
     libraryTarget: 'commonjs2'
   },

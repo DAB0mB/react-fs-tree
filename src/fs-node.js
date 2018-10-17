@@ -1,10 +1,21 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import ReactDOM from 'react-dom'
 
 import Icons from './icons'
 import { exports } from './module'
+import Shapes from './shapes'
 
 class FSNode extends React.Component {
+  static propTypes = {
+    depth: PropTypes.number,
+    node: Shapes.Node,
+    onSelect: PropTypes.func,
+    onDeselect: PropTypes.func,
+    onCollapse: PropTypes.func,
+    onExpand: PropTypes.func,
+  }
+
   get children() {
     return this._children && this._children.target
   }

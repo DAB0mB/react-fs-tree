@@ -1,29 +1,17 @@
+import PropTypes from 'prop-types'
 import React from 'react'
-import { exports } from './module'
 
-const styles = css({
-  default: {
-    nodesList: {
-      margin: '0',
-      padding: '0',
-      marginTop: '15px',
-      listStyleType: 'none',
-    },
-    nodesListItem: {
-      marginTop: '8px 0',
-    }
-  }
-})
+import { exports } from './module'
+import Shapes from './shapes'
 
 class FSTree extends React.Component {
-  static getDerivedStateFromProps(props) {
-    const state = {}
-
-    if (props.hasOwnProperty('tree')) {
-      state.tree = props.tree
-    }
-
-    return state
+  static propTypes = {
+    depth: PropTypes.number,
+    tree: PropTypes.arrayOf(Shapes.Node),
+    onSelect: PropTypes.func,
+    onDeselect: PropTypes.func,
+    onCollapse: PropTypes.func,
+    onExpand: PropTypes.func,
   }
 
   constructor(props) {
