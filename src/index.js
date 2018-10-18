@@ -46,6 +46,86 @@ const FSRoot = (props) => (
       .FSTree-node-list-item {
         margin-bottom: 15px;
       }
+
+      .FSNode {
+        width: 100%;
+        height: 20px;
+        display: inline-block;
+      }
+
+      .FSNode-wrap {
+        height: 100%;
+      }
+      .FSNode-wrap.FSNode-selected {
+        color: white;
+        background-color: #4c84ff;
+      }
+
+      .FSNode-wrap.FSNode-deselected {
+        color: #5b6f9d;
+        background-color: white;
+      }
+
+      .FSNode-node {
+        user-select: none;
+        cursor: default;
+        transform: translateY(-2px);
+      }
+
+      .FSNode-descriptor {
+        cursor: pointer;
+        display: inline-block;
+        white-space: nowrap;
+      }
+
+      .FSNode-icon {
+        display: inline-block;
+        text-align: right;
+        line-height: 20px;
+        width: 38px;
+        height: 100%;
+        user-select: none;
+        font-weight: bold;
+        transform: translateY(1px);
+      }
+
+      .FSNode-caret {
+        margin-right: 5px;
+        margin-left: -5px;
+      }
+
+      .FSNode-mode {
+        transform: translateY(-0.5px);
+        display: inline-block;
+        width: 18px;
+        height: 18px;
+        line-height: 18px;
+        text-align: center;
+        font-weight: 800;
+        margin-left: -26px;
+        margin-right: 5px;
+        border: 1px solid #5b6f9d;
+        border-radius: 3px;
+        background-color: white;
+        color: #5b6f9d;
+      }
+
+      .FSNode-mode.FSNode-added {
+        color: #356611;
+      }
+
+      .FSNode-mode.FSNode-deleted {
+        color: #951b1b;
+      }
+
+      .FSNode-text {
+        font-weight: bold;
+        display: inline-block;
+        line-height: 23px;
+        height: 100%;
+        user-select: none;
+        text-overflow: ellipsis;
+      }
     ` }} />
     <module.exports.FSTree {...props} />
   </div>

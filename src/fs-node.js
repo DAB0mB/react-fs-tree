@@ -38,99 +38,25 @@ class FSNode extends React.Component {
     const { node } = this.state
 
     return (
-      <span>
-        <style dangerouslySetInnerHTML={{ __html: `
-          .FSNode {
-            width: 100%;
-            height: 20px;
-            display: inline-block;
-          }
-          .FSNode ._wrap {
-            height: 100%;
-          }
-          .FSNode ._wrap._selected {
-            color: white;
-            background-color: #4c84ff;
-          }
-          .FSNode ._wrap._deselected {
-            color: #5b6f9d;
-            background-color: white;
-          }
-          .FSNode ._node {
-            user-select: none;
-            cursor: default;
-            transform: translateY(-2px);
-          }
-          .FSNode ._descriptor {
-            cursor: pointer;
-            display: inline-block;
-            white-space: nowrap;
-          }
-          .FSNode ._icon {
-            display: inline-block;
-            text-align: right;
-            line-height: 20px;
-            width: 38px;
-            height: 100%;
-            user-select: none;
-            font-weight: bold;
-            transform: translateY(1px);
-          }
-          .FSNode ._icon ._caret {
-            margin-right: 5px;
-            margin-left: -5px;
-          }
-          .FSNode ._icon ._mode {
-            transform: translateY(-0.5px);
-            display: inline-block;
-            width: 18px;
-            height: 18px;
-            line-height: 18px;
-            text-align: center;
-            font-weight: 800;
-            margin-left: -26px;
-            margin-right: 5px;
-            border: 1px solid #5b6f9d;
-            border-radius: 3px;
-            background-color: white;
-            color: #5b6f9d;
-          }
-          .FSNode ._icon ._mode._added {
-            color: #356611;
-          }
-          .FSNode ._icon ._mode._deleted {
-            color: #951b1b;
-          }
-          .FSNode ._text {
-            font-weight: bold;
-            display: inline-block;
-            line-height: 23px;
-            height: 100%;
-            user-select: none;
-            text-overflow: ellipsis;
-          }
-        ` }} />
-        <div className="FSNode">
-          <div className={this.getWrapClass()} style={this.getWrapStyle()}>
-            <div className="_node" style={this.getNodeStyle()}>
-              <div className="_descriptor">
-                <div className="_icon" onClick={this.toggleCollapse}>{this.getIcon()}</div>
-                <div className="_text" onClick={this.toggleSelection}>{node.name}</div>
-              </div>
-              {node.children && !node.collapsed && (
-                <exports.FSTree
-                  className="_fstree"
-                  ref={ref => this.children = ref}
-                  tree={node.children}
-                  depth={this.depth}
-                  onSelect={this.onSelect}
-                  onDeselect={this.onDeselect}
-                />
-              )}
+      <div className="FSNode">
+        <div className={this.getWrapClass()} style={this.getWrapStyle()}>
+          <div className="FSNode-node" style={this.getNodeStyle()}>
+            <div className="FSNode-descriptor">
+              <div className="FSNode-icon" onClick={this.toggleCollapse}>{this.getIcon()}</div>
+              <div className="FSNode-text" onClick={this.toggleSelection}>{node.name}</div>
             </div>
+            {node.children && !node.collapsed && (
+              <exports.FSTree
+                ref={ref => this.children = ref}
+                tree={node.children}
+                depth={this.depth}
+                onSelect={this.onSelect}
+                onDeselect={this.onDeselect}
+              />
+            )}
           </div>
         </div>
-      </span>
+      </div>
     )
   }
 
@@ -211,9 +137,9 @@ class FSNode extends React.Component {
   }
 
   getWrapClass() {
-    const selected = this.state.node.selected ? '_selected' : '_deselected'
+    const selected = this.state.node.selected ? 'FSNode-selected' : 'FSNode-deselected'
 
-    return `_wrap ${selected}`
+    return `FSNode-wrap ${selected}`
   }
 
   getDepthSize(depth = this.depth) {
@@ -249,19 +175,19 @@ class FSNode extends React.Component {
       switch (node.mode) {
         case 'added': return (
           <span onClick={this.toggleSelection}>
-            <span className='_mode _added'>A</span>
+            <span className='FSNode-mode FSNode-added'>A</span>
             <Icons.File />
           </span>
         )
         case 'deleted': return (
           <span onClick={this.toggleSelection}>
-            <span className='_mode _deleted'>D</span>
+            <span className='FSNode-mode FSNode-deleted'>D</span>
             <Icons.File />
           </span>
         )
         case 'modified': return (
           <span onClick={this.toggleSelection}>
-            <span className='_mode _modified'>M</span>
+            <span className='FSNode-mode FSNode-modified'>M</span>
             <Icons.File />
           </span>
         )
@@ -271,12 +197,12 @@ class FSNode extends React.Component {
 
     return node.collapsed ? (
       <span>
-        <Icons.CaretRight className="_caret" />
+        <Icons.CaretRight className="FSNode-caret" />
         <Icons.Folder />
       </span>
     ) : (
       <span>
-        <Icons.CaretDown className="_caret" />
+        <Icons.CaretDown className="FSNode-caret" />
         <Icons.FolderOpen />
       </span>
     )
