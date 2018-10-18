@@ -24,7 +24,7 @@ class App extends Component {
         <FSTree tree={[
           { name: 'a' },
           { name: 'b' },
-          { name: 'c', mode: 'added' },
+          { name: 'c', mode: 'a' },
           { name: 'd', children: [ { name: 'e' } ] }
         ]} />
       </div>

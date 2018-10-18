@@ -173,21 +173,21 @@ class FSNode extends React.Component {
 
     if (!node.children) {
       switch (node.mode) {
-        case 'added': return (
+        case 'a': return (
           <span onClick={this.toggleSelection}>
-            <span className='FSNode-mode FSNode-added'>A</span>
+            <span className='FSNode-mode FSNode-mode-a'>A</span>
             <Icons.File />
           </span>
         )
-        case 'deleted': return (
+        case 'd': return (
           <span onClick={this.toggleSelection}>
-            <span className='FSNode-mode FSNode-deleted'>D</span>
+            <span className='FSNode-mode FSNode-mode-d'>D</span>
             <Icons.File />
           </span>
         )
-        case 'modified': return (
+        case 'm': return (
           <span onClick={this.toggleSelection}>
-            <span className='FSNode-mode FSNode-modified'>M</span>
+            <span className='FSNode-mode FSNode-mode-m'>M</span>
             <Icons.File />
           </span>
         )
@@ -197,12 +197,12 @@ class FSNode extends React.Component {
 
     return node.collapsed ? (
       <span>
-        <Icons.CaretRight className="FSNode-caret" />
+        <Icons.CaretRight />
         <Icons.Folder />
       </span>
     ) : (
       <span>
-        <Icons.CaretDown className="FSNode-caret" />
+        <Icons.CaretDown />
         <Icons.FolderOpen />
       </span>
     )

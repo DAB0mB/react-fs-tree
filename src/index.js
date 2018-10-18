@@ -64,7 +64,6 @@ const FSRoot = (props) => (
 
       .FSNode-wrap.FSNode-deselected {
         color: #5b6f9d;
-        background-color: white;
       }
 
       .FSNode-node {
@@ -90,11 +89,6 @@ const FSRoot = (props) => (
         transform: translateY(1px);
       }
 
-      .FSNode-caret {
-        margin-right: 5px;
-        margin-left: -5px;
-      }
-
       .FSNode-mode {
         transform: translateY(-0.5px);
         display: inline-block;
@@ -111,11 +105,11 @@ const FSRoot = (props) => (
         color: #5b6f9d;
       }
 
-      .FSNode-mode.FSNode-added {
+      .FSNode-mode.FSNode-mode-a {
         color: #356611;
       }
 
-      .FSNode-mode.FSNode-deleted {
+      .FSNode-mode.FSNode-mode-d {
         color: #951b1b;
       }
 
