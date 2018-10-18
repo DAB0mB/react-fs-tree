@@ -10,30 +10,30 @@ const FSRoot = (props) => (
       .rfst-icon {
         display: inline-block;
         font-size: inherit;
-        height: 1em;
+        height: 16px;
         overflow: visible;
-        vertical-align: -.125em;
+        vertical-align: -2px;
         margin-right: 5px;
       }
 
       .rfst-icon-file {
-        width: 1.125em;
+        width: 18px;
       }
 
       .rfst-icon-folder {
-        width: 1.125em;
+        width: 18px;
       }
 
       .rfst-icon-folder-open {
-        width: 1.125em;
+        width: 18px;
       }
 
       .rfst-icon-caret-right {
-        width: 0.375em;
+        width: 6px;
       }
 
       .rfst-icon-caret-down {
-        width: 0.625em;
+        width: 10px;
       }
 
       .FSTree-node-list {
@@ -56,6 +56,7 @@ const FSRoot = (props) => (
       .FSNode-wrap {
         height: 100%;
       }
+
       .FSNode-wrap.FSNode-selected {
         color: white;
         background-color: #4c84ff;
