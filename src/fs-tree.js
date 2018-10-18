@@ -59,37 +59,23 @@ class FSTree extends React.Component {
     const tree = this.state.tree
 
     return (
-      <span>
-        <style dangerouslySetInnerHTML={{ __html: `
-          .FSTree ._nodes-list {
-            margin: 0;
-            padding: 0;
-            margin-top: 15px;
-            list-style-type: none;
-          }
-
-          .FSTree ._nodes-list-item {
-            margin-top: 8px 0;
-          }
-        ` }} />
-        <div className="FSTree">
-          <ul className="_nodes-list">
-            {tree.map((node) => (
-              <li key={node.name} className="_nodes-list-item">
-                <exports.FSNode
-                  ref={ref => this.nodes.push(ref)}
-                  node={node}
-                  depth={this.depth + 1}
-                  onSelect={this.onSelect}
-                  onDeselect={this.onDeselect}
-                  onCollapse={this.onCollapse}
-                  onExpand={this.onExpand}
-                />
-              </li>
-            ))}
-          </ul>
-        </div>
-      </span>
+      <div className="FSTree">
+        <ul className="FSTree-node-list">
+          {tree.map((node) => (
+            <li key={node.name} className="FSTree-node-list-item">
+              <exports.FSNode
+                ref={ref => this.nodes.push(ref)}
+                node={node}
+                depth={this.depth + 1}
+                onSelect={this.onSelect}
+                onDeselect={this.onDeselect}
+                onCollapse={this.onCollapse}
+                onExpand={this.onExpand}
+              />
+            </li>
+          ))}
+        </ul>
+      </div>
     )
   }
 

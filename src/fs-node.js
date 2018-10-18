@@ -45,15 +45,12 @@ class FSNode extends React.Component {
             height: 20px;
             display: inline-block;
           }
-          .FSNode svg {
-            height: 15px;
-          }
           .FSNode ._wrap {
             height: 100%;
           }
           .FSNode ._wrap._selected {
             color: white;
-            background-color: #5b6f9d;
+            background-color: #4c84ff;
           }
           .FSNode ._wrap._deselected {
             color: #5b6f9d;
@@ -71,25 +68,27 @@ class FSNode extends React.Component {
           }
           .FSNode ._icon {
             display: inline-block;
-            text-align: center;
+            text-align: right;
             line-height: 20px;
-            width: 30px;
+            width: 38px;
             height: 100%;
             user-select: none;
             font-weight: bold;
+            transform: translateY(1px);
           }
           .FSNode ._icon ._caret {
             margin-right: 5px;
             margin-left: -5px;
           }
           .FSNode ._icon ._mode {
+            transform: translateY(-0.5px);
             display: inline-block;
             width: 18px;
             height: 18px;
             line-height: 18px;
             text-align: center;
             font-weight: 800;
-            margin-left: -15px;
+            margin-left: -26px;
             margin-right: 5px;
             border: 1px solid #5b6f9d;
             border-radius: 3px;
@@ -105,7 +104,7 @@ class FSNode extends React.Component {
           .FSNode ._text {
             font-weight: bold;
             display: inline-block;
-            line-height: 20px;
+            line-height: 23px;
             height: 100%;
             user-select: none;
             text-overflow: ellipsis;
@@ -218,7 +217,7 @@ class FSNode extends React.Component {
   }
 
   getDepthSize(depth = this.depth) {
-    let padding = 16 * depth
+    let padding = 38 * depth
 
     if (!this.state.node.children) {
       padding += 14
@@ -266,7 +265,7 @@ class FSNode extends React.Component {
             <Icons.File />
           </span>
         )
-        default: return <Icons.File />
+        default: return <Icons.File onClick={this.toggleSelection} />
       }
     }
 
