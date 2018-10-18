@@ -21,7 +21,7 @@ class App extends Component {
             Learn React
           </a>
         </header>
-        <FSTree tree={[
+        <FSTree children={[
           { name: 'a' },
           { name: 'b' },
           { name: 'c', mode: 'a' },

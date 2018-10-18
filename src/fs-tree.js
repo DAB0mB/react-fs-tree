@@ -7,11 +7,11 @@ import Shapes from './shapes'
 class FSTree extends React.Component {
   static propTypes = {
     depth: PropTypes.number,
-    tree: PropTypes.arrayOf(Shapes.Node).isRequired,
+    children: PropTypes.arrayOf(Shapes.Node).isRequired,
     onSelect: PropTypes.func,
     onDeselect: PropTypes.func,
-    onCollapse: PropTypes.func,
-    onExpand: PropTypes.func,
+    onClose: PropTypes.func,
+    onOpen: PropTypes.func,
   }
 
   constructor(props) {
@@ -21,7 +21,7 @@ class FSTree extends React.Component {
     this.nodes = []
 
     this.state = {
-      tree: props.tree
+      children: props.children
     }
   }
 
@@ -33,8 +33,8 @@ class FSTree extends React.Component {
     const state = {}
     let updated = false
 
-    if (props.hasOwnProperty('tree')) {
-      state.tree = props.tree
+    if (props.hasOwnProperty('children')) {
+      state.children = props.children
       updated = true
     }
 
@@ -56,12 +56,12 @@ class FSTree extends React.Component {
   }
 
   render() {
-    const tree = this.state.tree
+    const children = this.state.children
 
     return (
       <div className="FSTree">
         <ul className="FSTree-node-list">
-          {tree.map((node) => (
+          {children.map((node) => (
             <li key={node.name} className="FSTree-node-list-item">
               <exports.FSNode
                 ref={ref => this.nodes.push(ref)}
@@ -69,8 +69,8 @@ class FSTree extends React.Component {
                 depth={this.depth + 1}
                 onSelect={this.onSelect}
                 onDeselect={this.onDeselect}
-                onCollapse={this.onCollapse}
-                onExpand={this.onExpand}
+                onClose={this.onClose}
+                onOpen={this.onOpen}
               />
             </li>
           ))}
@@ -109,15 +109,15 @@ class FSTree extends React.Component {
     }
   }
 
-  onCollapse = (node, component) => {
-    if (typeof this.props.onCollapse === 'function') {
-      this.props.onCollapse(node, component);
+  onClose = (node, component) => {
+    if (typeof this.props.onClose === 'function') {
+      this.props.onClose(node, component);
     }
   }
 
-  onExpand = (node, component) => {
-    if (typeof this.props.onExpand === 'function') {
-      this.props.onExpand(node, component);
+  onOpen = (node, component) => {
+    if (typeof this.props.onOpen === 'function') {
+      this.props.onOpen(node, component);
     }
   }
 }

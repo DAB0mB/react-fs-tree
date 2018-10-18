@@ -12,8 +12,8 @@ class FSNode extends React.Component {
     node: Shapes.Node.isRequired,
     onSelect: PropTypes.func,
     onDeselect: PropTypes.func,
-    onCollapse: PropTypes.func,
-    onExpand: PropTypes.func,
+    onClose: PropTypes.func,
+    onOpen: PropTypes.func,
   }
 
   get children() {
@@ -42,16 +42,18 @@ class FSNode extends React.Component {
         <div className={this.getWrapClass()} style={this.getWrapStyle()}>
           <div className="FSNode-node" style={this.getNodeStyle()}>
             <div className="FSNode-descriptor">
-              <div className="FSNode-icon" onClick={this.toggleCollapse}>{this.getIcon()}</div>
+              <div className="FSNode-icon" onClick={this.toggleOpenness}>{this.getIcon()}</div>
               <div className="FSNode-text" onClick={this.toggleSelection}>{node.name}</div>
             </div>
-            {node.children && !node.collapsed && (
+            {node.children && node.opened && (
               <exports.FSTree
                 ref={ref => this.children = ref}
-                tree={node.children}
                 depth={this.depth}
+                children={node.children}
                 onSelect={this.onSelect}
                 onDeselect={this.onDeselect}
+                onOpen={this.onOpen}
+                onClose={this.onClose}
               />
             )}
           </div>
@@ -195,7 +197,7 @@ class FSNode extends React.Component {
       }
     }
 
-    return node.collapsed ? (
+    return !node.opened ? (
       <span>
         <Icons.CaretRight />
         <Icons.Folder />
@@ -208,38 +210,38 @@ class FSNode extends React.Component {
     )
   }
 
-  collapse() {
-    if (this.state.node.collapsed) return
+  close() {
+    if (!this.state.node.opened) return
 
     this.setState({
       node: Object.assign(this.state.node, {
-        collapsed: true
+        opened: false
       })
     }, () => {
-      if (typeof this.props.onCollapse === 'function') {
-        this.props.onCollapse(this.state.node, this)
+      if (typeof this.props.onClose === 'function') {
+        this.props.onClose(this.state.node, this)
       }
     })
   }
 
-  expand() {
-    if (!this.state.node.collapsed) return
+  open() {
+    if (this.state.node.opened) return
 
     this.setState({
       node: Object.assign(this.state.node, {
-        collapsed: false
+        opened: true
       })
     }, () => {
-      if (typeof this.props.onExpand === 'function') {
-        this.props.onExpand(this.state.node, this)
+      if (typeof this.props.onOpen === 'function') {
+        this.props.onOpen(this.state.node, this)
       }
     })
   }
 
-  toggleCollapse = () => {
+  toggleOpenness = () => {
     if (!this.state.node.children) return
 
-    return this.state.node.collapsed ? this.expand() : this.collapse()
+    return this.state.node.opened ? this.close() : this.open()
   }
 
   onSelect = (node, component) => {
@@ -251,6 +253,18 @@ class FSNode extends React.Component {
   onDeselect = (node, component) => {
     if (typeof this.props.onDeselect === 'function') {
       this.props.onDeselect(node, component);
+    }
+  }
+
+  onOpen = (node, component) => {
+    if (typeof this.props.onOpen === 'function') {
+      this.props.onOpen(node, component);
+    }
+  }
+
+  onClose = (node, component) => {
+    if (typeof this.props.onClose === 'function') {
+      this.props.onClose(node, component);
     }
   }
 }
