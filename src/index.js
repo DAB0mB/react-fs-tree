@@ -36,6 +36,10 @@ const FSRoot = (props) => (
         width: 10px;
       }
 
+      .FSRoot {
+        margin-left: -18px;
+      }
+
       .FSTree-node-list {
         margin: 0;
         padding: 0;
@@ -90,7 +94,6 @@ const FSRoot = (props) => (
       }
 
       .FSNode-mode {
-        transform: translateY(-0.5px);
         display: inline-block;
         width: 18px;
         height: 18px;
@@ -98,10 +101,7 @@ const FSRoot = (props) => (
         text-align: center;
         font-weight: 800;
         margin-left: -26px;
-        margin-right: 5px;
-        border: 1px solid #5b6f9d;
-        border-radius: 3px;
-        background-color: white;
+        margin-right: -0.5px;
         color: #5b6f9d;
       }
 
@@ -111,6 +111,10 @@ const FSRoot = (props) => (
 
       .FSNode-mode.FSNode-mode-d {
         color: #951b1b;
+      }
+
+      .FSNode-wrap.FSNode-selected .FSNode-mode {
+        color: white;
       }
 
       .FSNode-text {
