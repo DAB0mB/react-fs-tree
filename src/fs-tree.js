@@ -7,34 +7,50 @@ import Shapes from './shapes'
 class FSTree extends React.Component {
   static propTypes = {
     depth: PropTypes.number,
-    children: PropTypes.arrayOf(Shapes.Node).isRequired,
+    childNodes: PropTypes.arrayOf(Shapes.Node).isRequired,
     onSelect: PropTypes.func,
     onDeselect: PropTypes.func,
     onClose: PropTypes.func,
     onOpen: PropTypes.func,
   }
 
+  static defaultProps = {
+    depth: 0,
+    onSelect: () => {},
+    onDeselect: () => {},
+    onClose: () => {},
+    onOpen: () => {},
+  }
+
+  get depth() {
+    return this._depth
+  }
+
+  get childComponents() {
+    return [...this._childComponents]
+  }
+
   constructor(props) {
     super(props)
 
-    this.depth = Number(props.depth) || 0
-    this.nodes = []
+    this._depth = props.depth
+    this._childComponents = []
 
     this.state = {
-      children: props.children
+      childNodes: props.childNodes
     }
   }
 
   componentWillUpdate() {
-    this.nodes = []
+    this._childComponents = []
   }
 
   componentWillReceiveProps(props) {
     const state = {}
     let updated = false
 
-    if (props.hasOwnProperty('children')) {
-      state.children = props.children
+    if (props.hasOwnProperty('childNodes')) {
+      state.childNodes = props.childNodes
       updated = true
     }
 
@@ -43,34 +59,22 @@ class FSTree extends React.Component {
     }
   }
 
-  getSnapshotBeforeUpdate() {
-    this.nodes = []
-
-    return null
-  }
-
-  getNodes() {
-    return this.nodes
-      .filter(Boolean)
-      .map(({ target }) => target)
-  }
-
   render() {
-    const children = this.state.children
+    const { childNodes } = this.state
 
     return (
       <div className="FSTree">
         <ul className="FSTree-node-list">
-          {children.map((node) => (
+          {childNodes.map((node) => (
             <li key={node.name} className="FSTree-node-list-item">
               <exports.FSNode
-                ref={ref => this.nodes.push(ref)}
+                ref={ref => ref && this._childComponents.push(ref)}
                 node={node}
-                depth={this.depth + 1}
-                onSelect={this.onSelect}
-                onDeselect={this.onDeselect}
-                onClose={this.onClose}
-                onOpen={this.onOpen}
+                depth={this._depth + 1}
+                onSelect={this._onSelect}
+                onDeselect={this._onDeselect}
+                onClose={this._onClose}
+                onOpen={this._onOpen}
               />
             </li>
           ))}
@@ -79,46 +83,20 @@ class FSTree extends React.Component {
     )
   }
 
-  deselect() {
-    this.getNodes().forEach((node) => {
-      node.deselect()
-    })
+  _onDeselect = (node, component) => {
+    this.props.onDeselect(node, component)
   }
 
-  getSelectionPath() {
-    const nodes = this.getNodes()
-
-    for (let node of nodes) {
-      const childSelectionPath = node.getSelectionPath()
-
-      if (childSelectionPath) {
-        return childSelectionPath
-      }
-    }
+  _onSelect = (node, component) => {
+    this.props.onSelect(node, component)
   }
 
-  onDeselect = (node, component) => {
-    if (typeof this.props.onDeselect === 'function') {
-      this.props.onDeselect(node, component);
-    }
+  _onClose = (node, component) => {
+    this.props.onClose(node, component)
   }
 
-  onSelect = (node, component) => {
-    if (typeof this.props.onSelect === 'function') {
-      this.props.onSelect(node, component);
-    }
-  }
-
-  onClose = (node, component) => {
-    if (typeof this.props.onClose === 'function') {
-      this.props.onClose(node, component);
-    }
-  }
-
-  onOpen = (node, component) => {
-    if (typeof this.props.onOpen === 'function') {
-      this.props.onOpen(node, component);
-    }
+  _onOpen = (node, component) => {
+    this.props.onOpen(node, component)
   }
 }
 
