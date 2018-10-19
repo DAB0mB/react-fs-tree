@@ -1,39 +1,24 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
 import FSTree from 'react-fs-tree'
 
-class App extends Component {
+class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
         <FSTree childNodes={[
-          { name: 'a' },
-          { name: 'b' },
-          { name: 'c', mode: 'a' },
-          { name: 'd', childNodes: [
-            { name: 'e', childNodes: [
-              { name: 'f', mode: 'm' }
-            ] }
-          ] }
+          { name: 'file' },
+          { name: 'added file', mode: 'a' },
+          { name: 'deleted file', mode: 'd' },
+          { name: 'modified file', mode: 'm' },
+          { name: 'folder', childNodes: [
+            { name: 'foo' },
+            { name: 'bar' },
+            { name: 'baz' },
+          ] },
         ]} />
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App
