@@ -206,7 +206,7 @@ class FSNode extends React.Component {
   }
 
   _getDepthSize = (depth = this._depth) => {
-    let padding = 38 * depth
+    let padding = 23 * depth
 
     if (!this.state.node.childNodes) {
       padding += 14

@@ -25,7 +25,11 @@ class App extends Component {
           { name: 'a' },
           { name: 'b' },
           { name: 'c', mode: 'a' },
-          { name: 'd', childNodes: [ { name: 'e' } ] }
+          { name: 'd', childNodes: [
+            { name: 'e', childNodes: [
+              { name: 'f', mode: 'm' }
+            ] }
+          ] }
         ]} />
       </div>
     );

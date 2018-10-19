@@ -73,12 +73,12 @@ const FSRoot = (props) => (
       }
 
       .FSNode-descriptor {
-        cursor: pointer;
-        display: inline-block;
+        display: flex;
         white-space: nowrap;
       }
 
       .FSNode-icon {
+        cursor: pointer;
         display: inline-block;
         text-align: right;
         line-height: 20px;
@@ -86,7 +86,7 @@ const FSRoot = (props) => (
         height: 100%;
         user-select: none;
         font-weight: bold;
-        transform: translateY(1px);
+        transform: translateY(2.5px);
       }
 
       .FSNode-mode {
@@ -114,6 +114,7 @@ const FSRoot = (props) => (
       }
 
       .FSNode-text {
+        cursor: pointer;
         font-weight: bold;
         display: inline-block;
         line-height: 23px;
