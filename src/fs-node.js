@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import ReactDOM from 'react-dom'
 
 import Icons from './icons'
 import { exports } from './module'
@@ -8,8 +7,9 @@ import Shapes from './shapes'
 
 class FSNode extends React.Component {
   static propTypes = {
-    depth: PropTypes.number,
     node: Shapes.Node.isRequired,
+    parentComponent: PropTypes.instanceOf(React.Component).isRequired,
+    depth: PropTypes.number,
     onSelect: PropTypes.func,
     onDeselect: PropTypes.func,
     onClose: PropTypes.func,
@@ -28,14 +28,24 @@ class FSNode extends React.Component {
     return this._depth
   }
 
+  get parentComponent() {
+    return this._parentComponent && this._parentComponent._parentComponent
+  }
+
   get childComponents() {
     return [...this._childComponents]
+  }
+
+  get path() {
+    return this._path
   }
 
   constructor(props) {
     super(props)
 
     this._depth = props.depth
+    this._parentComponent = props.parentComponent
+    this._path = props.parentComponent._path + props.node.name
     this._childComponents = []
 
     this.state = {
@@ -43,8 +53,16 @@ class FSNode extends React.Component {
     }
   }
 
+  componentDidMount() {
+    this._mounted = true
+  }
+
   componentWillUpdate() {
     this._childComponents = []
+  }
+
+  componentWillUnmount() {
+    this._mounted = false
   }
 
   render() {
@@ -61,8 +79,9 @@ class FSNode extends React.Component {
             {node.childNodes && node.opened && (
               <exports.FSTree
                 ref={ref => ref && (this._childComponents = ref._childComponents)}
-                depth={this._depth}
                 childNodes={node.childNodes}
+                parentComponent={this}
+                depth={this._depth}
                 onSelect={this._onSelect}
                 onDeselect={this._onDeselect}
                 onOpen={this._onOpen}
@@ -87,11 +106,7 @@ class FSNode extends React.Component {
 
     if (this.state.node.selected) return callback()
 
-    try {
-      ReactDOM.findDOMNode(this)
-    }
-    // If not mounted, still perform operation on node
-    catch (e) {
+    if (!this._mounted) {
       const node = this.state.node
       node.selected = true
 
@@ -121,11 +136,7 @@ class FSNode extends React.Component {
 
     if (!this.state.node.selected) return callback()
 
-    try {
-      ReactDOM.findDOMNode(this)
-    }
-    // If not mounted, still perform operation on node
-    catch (e) {
+    if (!this._mounted) {
       const node = this.state.node
       node.selected = false
 

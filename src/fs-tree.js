@@ -6,8 +6,9 @@ import Shapes from './shapes'
 
 class FSTree extends React.Component {
   static propTypes = {
-    depth: PropTypes.number,
     childNodes: PropTypes.arrayOf(Shapes.Node).isRequired,
+    parentComponent: PropTypes.instanceOf(React.Component).isRequired,
+    depth: PropTypes.number,
     onSelect: PropTypes.func,
     onDeselect: PropTypes.func,
     onClose: PropTypes.func,
@@ -26,14 +27,24 @@ class FSTree extends React.Component {
     return this._depth
   }
 
+  get parentComponent() {
+    return this._parentComponent
+  }
+
   get childComponents() {
     return [...this._childComponents]
+  }
+
+  get path() {
+    return this._path
   }
 
   constructor(props) {
     super(props)
 
     this._depth = props.depth
+    this._parentComponent = props.parentComponent
+    this._path = props.parentComponent._path + '/'
     this._childComponents = []
 
     this.state = {
@@ -70,6 +81,7 @@ class FSTree extends React.Component {
               <exports.FSNode
                 ref={ref => ref && this._childComponents.push(ref)}
                 node={node}
+                parentComponent={this}
                 depth={this._depth + 1}
                 onSelect={this._onSelect}
                 onDeselect={this._onDeselect}
