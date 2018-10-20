@@ -3,13 +3,16 @@ import React from 'react'
 
 import './fs-node'
 import './fs-tree'
-import module from './module'
+import { exports } from './module'
 import Shapes from './shapes'
 
-class FSRoot extends React.Component {
+export const FSTree = exports.FSTree
+export const FSNode = exports.FSNode
+
+export class FSRoot extends React.Component {
   static propTypes = {
     childNodes: PropTypes.arrayOf(PropTypes.shape(Shapes.node)),
-    noninteractive: PropTypes.boolean,
+    noninteractive: PropTypes.bool,
     onSelect: PropTypes.func,
     onDeselect: PropTypes.func,
     onClose: PropTypes.func,
@@ -24,8 +27,12 @@ class FSRoot extends React.Component {
     onOpen: () => {},
   }
 
-  get childComponents() {
-    return this._childComponents
+  get noninteractive() {
+    return this.props.noninteractive
+  }
+
+  get childNodes() {
+    return this._childNodes
   }
 
   get path() {
@@ -36,11 +43,11 @@ class FSRoot extends React.Component {
     super(props)
 
     this._path = '~'
-    this._childComponents = []
+    this._childNodes = []
   }
 
   componentWillUpdate() {
-    this._childComponents = []
+    this._childNodes = []
   }
 
   render() {
@@ -169,10 +176,11 @@ class FSRoot extends React.Component {
             text-overflow: ellipsis;
           }
         ` }} />
-        <module.exports.FSTree
+        <FSTree
           {...this.props}
-          ref={ref => ref && (this._childComponents = ref._childComponents)}
-          parentComponent={this}
+          ref={ref => ref && (this._childNodes = ref._childNodes)}
+          parentNode={this}
+          rootNode={this}
         />
       </div>
     )

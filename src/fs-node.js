@@ -8,9 +8,10 @@ import Shapes from './shapes'
 class FSNode extends React.Component {
   static propTypes = {
     node: Shapes.Node.isRequired,
-    parentComponent: PropTypes.instanceOf(React.Component).isRequired,
+    parentNode: PropTypes.instanceOf(React.Component).isRequired,
+    rootNode: PropTypes.instanceOf(React.Component).isRequired,
     depth: PropTypes.number,
-    noninteractive: PropTypes.boolean,
+    noninteractive: PropTypes.bool,
     onSelect: PropTypes.func,
     onDeselect: PropTypes.func,
     onClose: PropTypes.func,
@@ -27,28 +28,46 @@ class FSNode extends React.Component {
   }
 
   get depth() {
-    return this._depth
+    return this.props.depth
   }
 
-  get parentComponent() {
-    return this._parentComponent && this._parentComponent._parentComponent
+  get parentNode() {
+    return this.props.parentNode.parentNode
   }
 
-  get childComponents() {
-    return [...this._childComponents]
+  get rootNode() {
+    return this.props.rootNode
+  }
+
+  get noninteractive() {
+    return this.props.noninteractive
+  }
+
+  get childNodes() {
+    return [...this._childNodes]
   }
 
   get path() {
     return this._path
   }
 
+  get name() {
+    return this.state.node.name
+  }
+
+  get opened() {
+    return this.state.node.opened
+  }
+
+  get selected() {
+    return this.state.node.selected
+  }
+
   constructor(props) {
     super(props)
 
-    this._depth = props.depth
-    this._parentComponent = props.parentComponent
-    this._path = props.parentComponent._path + props.node.name
-    this._childComponents = []
+    this._path = props.parentNode._path + props.node.name
+    this._childNodes = []
 
     this.state = {
       node: props.node
@@ -60,7 +79,7 @@ class FSNode extends React.Component {
   }
 
   componentWillUpdate() {
-    this._childComponents = []
+    this._childNodes = []
   }
 
   componentWillUnmount() {
@@ -69,23 +88,23 @@ class FSNode extends React.Component {
 
   render() {
     const { node } = this.state
-    const { noninteractive } = this.props
 
     return (
       <div className="FSNode">
         <div className={this._getWrapClass()} style={this._getWrapStyle()}>
           <div className="FSNode-node" style={this._getNodeStyle()}>
             <div className="FSNode-descriptor">
-              <div className="FSNode-icon" onClick={!noninteractive && (() => this.toggleOpen())}>{this._getIcon()}</div>
-              <div className="FSNode-text" onClick={!noninteractive && (() => this.toggleSelect())}>{node.name}</div>
+              <div className="FSNode-icon" onClick={!this.noninteractive && (() => this.toggleOpen())}>{this._getIcon()}</div>
+              <div className="FSNode-text" onClick={!this.noninteractive && (() => this.toggleSelect())}>{node.name}</div>
             </div>
             {node.childNodes && node.opened && (
               <exports.FSTree
-                ref={ref => ref && (this._childComponents = ref._childComponents)}
+                ref={ref => ref && (this._childNodes = ref._childNodes)}
                 childNodes={node.childNodes}
-                parentComponent={this}
-                depth={this._depth}
-                noninteractive={noninteractive}
+                parentNode={this}
+                rootNode={this.rootNode}
+                depth={this.depth}
+                noninteractive={this.noninteractive}
                 onSelect={this._onSelect}
                 onDeselect={this._onDeselect}
                 onOpen={this._onOpen}
@@ -100,12 +119,10 @@ class FSNode extends React.Component {
 
   select(onSelect = () => {}) {
     const callback = (resolve = Promise.resolve.bind(Promise)) => {
-      const args = [this.state.node, this]
+      this.props.onSelect(this)
+      onSelect(this)
 
-      this.props.onSelect(...args)
-      onSelect(...args)
-
-      return resolve(args)
+      return resolve(this)
     }
 
     if (this.state.node.selected) return callback()
@@ -130,12 +147,10 @@ class FSNode extends React.Component {
 
   deselect(onDeselect = () => {}) {
     const callback = (resolve = Promise.resolve.bind(Promise)) => {
-      const args = [this.state.node, this]
+      this.props.onDeselect(this)
+      onDeselect(this)
 
-      this.props.onDeselect(...args)
-      onDeselect(...args)
-
-      return resolve(args)
+      return resolve(this)
     }
 
     if (!this.state.node.selected) return callback()
@@ -164,12 +179,10 @@ class FSNode extends React.Component {
 
   close(onClose = () => {}) {
     const callback = (resolve = Promise.resolve.bind(Promise)) => {
-      const args = [this.state.node, this]
+      this.props.onClose(this)
+      onClose(this)
 
-      this.props.onClose(...args)
-      onClose(...args)
-
-      return resolve(args)
+      return resolve(this)
     }
 
     if (!this.state.node.childNodes) return callback()
@@ -188,12 +201,10 @@ class FSNode extends React.Component {
 
   open(onOpen = () => {}) {
     const callback = (resolve = Promise.resolve.bind(Promise)) => {
-      const args = [this.state.node, this]
+      this.props.onOpen(this)
+      onOpen(this)
 
-      this.props.onOpen(...args)
-      onOpen(...args)
-
-      return resolve(args)
+      return resolve(this)
     }
 
     if (!this.state.node.childNodes) return callback()
@@ -220,7 +231,7 @@ class FSNode extends React.Component {
     return `FSNode-wrap ${selected}`
   }
 
-  _getDepthSize = (depth = this._depth) => {
+  _getDepthSize = (depth = this.depth) => {
     let padding = 23 * depth
 
     if (!this.state.node.childNodes) {
@@ -231,7 +242,7 @@ class FSNode extends React.Component {
   }
 
   _getWrapStyle = () => {
-    const translateX = this._getDepthSize(this._depth - 1)
+    const translateX = this._getDepthSize(this.depth - 1)
 
     return {
       transform: `translateX(-${translateX})`,
@@ -241,36 +252,35 @@ class FSNode extends React.Component {
 
   _getNodeStyle = () => {
     return {
-      paddingLeft: this._getDepthSize(this._depth),
-      zIndex: this._depth,
+      paddingLeft: this._getDepthSize(this.depth),
+      zIndex: this.depth,
     }
   }
 
   _getIcon = () => {
     const { node } = this.state
-    const { noninteractive } = this.props
 
     if (!node.childNodes) {
       switch (node.mode) {
         case 'a': return (
-          <span onClick={!noninteractive && (() => this.toggleSelect())}>
+          <span onClick={!this.noninteractive && (() => this.toggleSelect())}>
             <span className='FSNode-mode FSNode-mode-a'>A</span>
             <Icons.File />
           </span>
         )
         case 'd': return (
-          <span onClick={!noninteractive && (() => this.toggleSelect())}>
+          <span onClick={!this.noninteractive && (() => this.toggleSelect())}>
             <span className='FSNode-mode FSNode-mode-d'>D</span>
             <Icons.File />
           </span>
         )
         case 'm': return (
-          <span onClick={!noninteractive && (() => this.toggleSelect())}>
+          <span onClick={!this.noninteractive && (() => this.toggleSelect())}>
             <span className='FSNode-mode FSNode-mode-m'>M</span>
             <Icons.File />
           </span>
         )
-        default: return <Icons.File onClick={!noninteractive && (() => this.toggleSelect())}/>
+        default: return <Icons.File onClick={!this.noninteractive && (() => this.toggleSelect())}/>
       }
     }
 
@@ -287,20 +297,20 @@ class FSNode extends React.Component {
     )
   }
 
-  _onSelect = (node, component) => {
-    this.props.onSelect(node, component)
+  _onSelect = (node) => {
+    this.props.onSelect(node)
   }
 
-  _onDeselect = (node, component) => {
-    this.props.onDeselect(node, component)
+  _onDeselect = (node) => {
+    this.props.onDeselect(node)
   }
 
-  _onOpen = (node, component) => {
-    this.props.onOpen(node, component)
+  _onOpen = (node) => {
+    this.props.onOpen(node)
   }
 
-  _onClose = (node, component) => {
-    this.props.onClose(node, component)
+  _onClose = (node) => {
+    this.props.onClose(node)
   }
 }
 

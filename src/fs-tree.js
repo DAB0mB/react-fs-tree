@@ -7,9 +7,10 @@ import Shapes from './shapes'
 class FSTree extends React.Component {
   static propTypes = {
     childNodes: PropTypes.arrayOf(Shapes.Node).isRequired,
-    parentComponent: PropTypes.instanceOf(React.Component).isRequired,
+    parentNode: PropTypes.instanceOf(React.Component).isRequired,
+    rootNode: PropTypes.instanceOf(React.Component).isRequired,
     depth: PropTypes.number,
-    noninteractive: PropTypes.boolean,
+    noninteractive: PropTypes.bool,
     onSelect: PropTypes.func,
     onDeselect: PropTypes.func,
     onClose: PropTypes.func,
@@ -26,15 +27,23 @@ class FSTree extends React.Component {
   }
 
   get depth() {
-    return this._depth
+    return this.props.depth
   }
 
-  get parentComponent() {
-    return this._parentComponent
+  get parentNode() {
+    return this.props.parentNode
   }
 
-  get childComponents() {
-    return [...this._childComponents]
+  get rootNode() {
+    return this.props.rootNode
+  }
+
+  get noninteractive() {
+    return this.props.noninteractive
+  }
+
+  get childNodes() {
+    return [...this._childNodes]
   }
 
   get path() {
@@ -44,10 +53,8 @@ class FSTree extends React.Component {
   constructor(props) {
     super(props)
 
-    this._depth = props.depth
-    this._parentComponent = props.parentComponent
-    this._path = props.parentComponent._path + '/'
-    this._childComponents = []
+    this._path = props.parentNode._path + '/'
+    this._childNodes = []
 
     this.state = {
       childNodes: props.childNodes
@@ -55,7 +62,7 @@ class FSTree extends React.Component {
   }
 
   componentWillUpdate() {
-    this._childComponents = []
+    this._childNodes = []
   }
 
   componentWillReceiveProps(props) {
@@ -74,7 +81,6 @@ class FSTree extends React.Component {
 
   render() {
     const { childNodes } = this.state
-    const { noninteractive } = this.props
 
     return (
       <div className="FSTree">
@@ -82,11 +88,12 @@ class FSTree extends React.Component {
           {childNodes.map((node) => (
             <li key={node.name} className="FSTree-node-list-item">
               <exports.FSNode
-                ref={ref => ref && this._childComponents.push(ref)}
+                ref={ref => ref && this._childNodes.push(ref)}
                 node={node}
-                parentComponent={this}
-                noninteractive={noninteractive}
-                depth={this._depth + 1}
+                parentNode={this}
+                rootNode={this.rootNode}
+                noninteractive={this.noninteractive}
+                depth={this.depth + 1}
                 onSelect={this._onSelect}
                 onDeselect={this._onDeselect}
                 onClose={this._onClose}
@@ -99,20 +106,20 @@ class FSTree extends React.Component {
     )
   }
 
-  _onDeselect = (node, component) => {
-    this.props.onDeselect(node, component)
+  _onDeselect = (node) => {
+    this.props.onDeselect(node)
   }
 
-  _onSelect = (node, component) => {
-    this.props.onSelect(node, component)
+  _onSelect = (node) => {
+    this.props.onSelect(node)
   }
 
-  _onClose = (node, component) => {
-    this.props.onClose(node, component)
+  _onClose = (node) => {
+    this.props.onClose(node)
   }
 
-  _onOpen = (node, component) => {
-    this.props.onOpen(node, component)
+  _onOpen = (node) => {
+    this.props.onOpen(node)
   }
 }
 
