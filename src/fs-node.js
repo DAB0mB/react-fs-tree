@@ -10,6 +10,7 @@ class FSNode extends React.Component {
     node: Shapes.Node.isRequired,
     parentComponent: PropTypes.instanceOf(React.Component).isRequired,
     depth: PropTypes.number,
+    noninteractive: PropTypes.boolean,
     onSelect: PropTypes.func,
     onDeselect: PropTypes.func,
     onClose: PropTypes.func,
@@ -18,6 +19,7 @@ class FSNode extends React.Component {
 
   static defaultProps = {
     depth: 0,
+    noninteractive: false,
     onSelect: () => {},
     onDeselect: () => {},
     onClose: () => {},
@@ -67,14 +69,15 @@ class FSNode extends React.Component {
 
   render() {
     const { node } = this.state
+    const { noninteractive } = this.props
 
     return (
       <div className="FSNode">
         <div className={this._getWrapClass()} style={this._getWrapStyle()}>
           <div className="FSNode-node" style={this._getNodeStyle()}>
             <div className="FSNode-descriptor">
-              <div className="FSNode-icon" onClick={() => this.toggleOpen()}>{this._getIcon()}</div>
-              <div className="FSNode-text" onClick={() => this.toggleSelect()}>{node.name}</div>
+              <div className="FSNode-icon" onClick={!noninteractive && (() => this.toggleOpen())}>{this._getIcon()}</div>
+              <div className="FSNode-text" onClick={!noninteractive && (() => this.toggleSelect())}>{node.name}</div>
             </div>
             {node.childNodes && node.opened && (
               <exports.FSTree
@@ -82,6 +85,7 @@ class FSNode extends React.Component {
                 childNodes={node.childNodes}
                 parentComponent={this}
                 depth={this._depth}
+                noninteractive={noninteractive}
                 onSelect={this._onSelect}
                 onDeselect={this._onDeselect}
                 onOpen={this._onOpen}
@@ -244,28 +248,29 @@ class FSNode extends React.Component {
 
   _getIcon = () => {
     const { node } = this.state
+    const { noninteractive } = this.props
 
     if (!node.childNodes) {
       switch (node.mode) {
         case 'a': return (
-          <span onClick={() => this.toggleSelect()}>
+          <span onClick={!noninteractive && (() => this.toggleSelect())}>
             <span className='FSNode-mode FSNode-mode-a'>A</span>
             <Icons.File />
           </span>
         )
         case 'd': return (
-          <span onClick={() => this.toggleSelect()}>
+          <span onClick={!noninteractive && (() => this.toggleSelect())}>
             <span className='FSNode-mode FSNode-mode-d'>D</span>
             <Icons.File />
           </span>
         )
         case 'm': return (
-          <span onClick={() => this.toggleSelect()}>
+          <span onClick={!noninteractive && (() => this.toggleSelect())}>
             <span className='FSNode-mode FSNode-mode-m'>M</span>
             <Icons.File />
           </span>
         )
-        default: return <Icons.File onClick={() => this.toggleSelect()} />
+        default: return <Icons.File onClick={!noninteractive && (() => this.toggleSelect())}/>
       }
     }
 

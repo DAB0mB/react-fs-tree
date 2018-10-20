@@ -9,6 +9,7 @@ import Shapes from './shapes'
 class FSRoot extends React.Component {
   static propTypes = {
     childNodes: PropTypes.arrayOf(PropTypes.shape(Shapes.node)),
+    noninteractive: PropTypes.boolean,
     onSelect: PropTypes.func,
     onDeselect: PropTypes.func,
     onClose: PropTypes.func,
@@ -16,6 +17,7 @@ class FSRoot extends React.Component {
   }
 
   static defaultProps = {
+    noninteractive: false,
     onSelect: () => {},
     onDeselect: () => {},
     onClose: () => {},
@@ -42,6 +44,8 @@ class FSRoot extends React.Component {
   }
 
   render() {
+    const { noninteractive } = this.props
+
     return (
       <div className="FSRoot">
         <style dangerouslySetInnerHTML={{ __html: `
@@ -120,7 +124,7 @@ class FSRoot extends React.Component {
           }
 
           .FSNode-icon {
-            cursor: pointer;
+            cursor: ${noninteractive ? 'default' : 'pointer'};
             display: inline-block;
             text-align: right;
             line-height: 20px;
@@ -156,7 +160,7 @@ class FSRoot extends React.Component {
           }
 
           .FSNode-text {
-            cursor: pointer;
+            cursor: ${noninteractive ? 'default' : 'pointer'};
             font-weight: bold;
             display: inline-block;
             line-height: 23px;
@@ -168,6 +172,7 @@ class FSRoot extends React.Component {
         <module.exports.FSTree
           {...this.props}
           ref={ref => ref && (this._childComponents = ref._childComponents)}
+          parentComponent={this}
         />
       </div>
     )

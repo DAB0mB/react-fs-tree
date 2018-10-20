@@ -9,6 +9,7 @@ class FSTree extends React.Component {
     childNodes: PropTypes.arrayOf(Shapes.Node).isRequired,
     parentComponent: PropTypes.instanceOf(React.Component).isRequired,
     depth: PropTypes.number,
+    noninteractive: PropTypes.boolean,
     onSelect: PropTypes.func,
     onDeselect: PropTypes.func,
     onClose: PropTypes.func,
@@ -17,6 +18,7 @@ class FSTree extends React.Component {
 
   static defaultProps = {
     depth: 0,
+    noninteractive: false,
     onSelect: () => {},
     onDeselect: () => {},
     onClose: () => {},
@@ -72,6 +74,7 @@ class FSTree extends React.Component {
 
   render() {
     const { childNodes } = this.state
+    const { noninteractive } = this.props
 
     return (
       <div className="FSTree">
@@ -82,6 +85,7 @@ class FSTree extends React.Component {
                 ref={ref => ref && this._childComponents.push(ref)}
                 node={node}
                 parentComponent={this}
+                noninteractive={noninteractive}
                 depth={this._depth + 1}
                 onSelect={this._onSelect}
                 onDeselect={this._onDeselect}
