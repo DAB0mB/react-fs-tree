@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
+import './fs-branch'
 import './fs-node'
-import './fs-tree'
 import { exports } from './module'
 import Shapes from './shapes'
 
-export const FSTree = exports.FSTree
+export const FSBranch = exports.FSBranch
 export const FSNode = exports.FSNode
 
 export class FSRoot extends React.Component {
@@ -89,14 +89,14 @@ export class FSRoot extends React.Component {
             margin-left: -18px;
           }
 
-          .FSTree-node-list {
+          .FSBranch-node-list {
             margin: 0;
             padding: 0;
             margin-top: 15px;
             list-style-type: none;
           }
 
-          .FSTree-node-list-item {
+          .FSBranch-node-list-item {
             margin-bottom: 15px;
           }
 
@@ -176,11 +176,11 @@ export class FSRoot extends React.Component {
             text-overflow: ellipsis;
           }
         ` }} />
-        <FSTree
+        <FSBranch
           {...this.props}
           ref={ref => ref && (this._childNodes = ref._childNodes)}
           parentNode={this}
-          rootNode={this}
+          root={this}
         />
       </div>
     )

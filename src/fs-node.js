@@ -9,7 +9,7 @@ class FSNode extends React.Component {
   static propTypes = {
     node: Shapes.Node.isRequired,
     parentNode: PropTypes.instanceOf(React.Component).isRequired,
-    rootNode: PropTypes.instanceOf(React.Component).isRequired,
+    root: PropTypes.instanceOf(React.Component).isRequired,
     depth: PropTypes.number,
     noninteractive: PropTypes.bool,
     onSelect: PropTypes.func,
@@ -35,8 +35,8 @@ class FSNode extends React.Component {
     return this.props.parentNode.parentNode
   }
 
-  get rootNode() {
-    return this.props.rootNode
+  get root() {
+    return this.props.root
   }
 
   get noninteractive() {
@@ -98,11 +98,11 @@ class FSNode extends React.Component {
               <div className="FSNode-text" onClick={!this.noninteractive && (() => this.toggleSelect())}>{node.name}</div>
             </div>
             {node.childNodes && node.opened && (
-              <exports.FSTree
+              <exports.FSBranch
                 ref={ref => ref && (this._childNodes = ref._childNodes)}
                 childNodes={node.childNodes}
                 parentNode={this}
-                rootNode={this.rootNode}
+                root={this.root}
                 depth={this.depth}
                 noninteractive={this.noninteractive}
                 onSelect={this._onSelect}

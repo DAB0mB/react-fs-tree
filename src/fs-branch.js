@@ -4,11 +4,11 @@ import React from 'react'
 import { exports } from './module'
 import Shapes from './shapes'
 
-class FSTree extends React.Component {
+class FSBranch extends React.Component {
   static propTypes = {
     childNodes: PropTypes.arrayOf(Shapes.Node).isRequired,
     parentNode: PropTypes.instanceOf(React.Component).isRequired,
-    rootNode: PropTypes.instanceOf(React.Component).isRequired,
+    root: PropTypes.instanceOf(React.Component).isRequired,
     depth: PropTypes.number,
     noninteractive: PropTypes.bool,
     onSelect: PropTypes.func,
@@ -34,8 +34,8 @@ class FSTree extends React.Component {
     return this.props.parentNode
   }
 
-  get rootNode() {
-    return this.props.rootNode
+  get root() {
+    return this.props.root
   }
 
   get noninteractive() {
@@ -83,15 +83,15 @@ class FSTree extends React.Component {
     const { childNodes } = this.state
 
     return (
-      <div className="FSTree">
-        <ul className="FSTree-node-list">
+      <div className="FSBranch">
+        <ul className="FSBranch-node-list">
           {childNodes.map((node) => (
-            <li key={node.name} className="FSTree-node-list-item">
+            <li key={node.name} className="FSBranch-node-list-item">
               <exports.FSNode
                 ref={ref => ref && this._childNodes.push(ref)}
                 node={node}
                 parentNode={this}
-                rootNode={this.rootNode}
+                root={this.root}
                 noninteractive={this.noninteractive}
                 depth={this.depth + 1}
                 onSelect={this._onSelect}
@@ -123,4 +123,4 @@ class FSTree extends React.Component {
   }
 }
 
-exports.FSTree = FSTree
+exports.FSBranch = FSBranch
