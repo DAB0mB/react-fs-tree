@@ -32,7 +32,7 @@ class FSNode extends React.Component {
   }
 
   get parentNode() {
-    return this.props.parentNode.parentNode
+    return this.props.parentNode
   }
 
   get root() {
@@ -87,28 +87,26 @@ class FSNode extends React.Component {
   }
 
   render() {
-    const { node } = this.state
-
     return (
       <div className="FSNode">
         <div className={this._getWrapClass()} style={this._getWrapStyle()}>
           <div className="FSNode-node" style={this._getNodeStyle()}>
             <div className="FSNode-descriptor">
-              <div className="FSNode-icon" onClick={!this.noninteractive && (() => this.toggleOpen())}>{this._getIcon()}</div>
-              <div className="FSNode-text" onClick={!this.noninteractive && (() => this.toggleSelect())}>{node.name}</div>
+              <div className="FSNode-icon" onClick={!this.props.noninteractive && (() => this.toggleOpen())}>{this._getIcon()}</div>
+              <div className="FSNode-text" onClick={!this.props.noninteractive && (() => this.toggleSelect())}>{this.state.node.name}</div>
             </div>
-            {node.childNodes && node.opened && (
+            {this.state.node.childNodes && this.state.node.opened && (
               <exports.FSBranch
                 ref={ref => ref && (this._childNodes = ref._childNodes)}
-                childNodes={node.childNodes}
+                childNodes={this.state.node.childNodes}
                 parentNode={this}
-                root={this.root}
-                depth={this.depth}
-                noninteractive={this.noninteractive}
-                onSelect={this._onSelect}
-                onDeselect={this._onDeselect}
-                onOpen={this._onOpen}
-                onClose={this._onClose}
+                root={this.props.root}
+                depth={this.props.depth}
+                noninteractive={this.props.noninteractive}
+                onSelect={this.props.onSelect}
+                onDeselect={this.props.onDeselect}
+                onOpen={this.props.onOpen}
+                onClose={this.props.onClose}
               />
             )}
           </div>
@@ -258,33 +256,31 @@ class FSNode extends React.Component {
   }
 
   _getIcon = () => {
-    const { node } = this.state
-
-    if (!node.childNodes) {
-      switch (node.mode) {
+    if (!this.state.node.childNodes) {
+      switch (this.state.node.mode) {
         case 'a': return (
-          <span onClick={!this.noninteractive && (() => this.toggleSelect())}>
+          <span onClick={!this.props.noninteractive && (() => this.toggleSelect())}>
             <span className='FSNode-mode FSNode-mode-a'>A</span>
             <Icons.File />
           </span>
         )
         case 'd': return (
-          <span onClick={!this.noninteractive && (() => this.toggleSelect())}>
+          <span onClick={!this.props.noninteractive && (() => this.toggleSelect())}>
             <span className='FSNode-mode FSNode-mode-d'>D</span>
             <Icons.File />
           </span>
         )
         case 'm': return (
-          <span onClick={!this.noninteractive && (() => this.toggleSelect())}>
+          <span onClick={!this.props.noninteractive && (() => this.toggleSelect())}>
             <span className='FSNode-mode FSNode-mode-m'>M</span>
             <Icons.File />
           </span>
         )
-        default: return <Icons.File onClick={!this.noninteractive && (() => this.toggleSelect())}/>
+        default: return <Icons.File onClick={!this.props.noninteractive && (() => this.toggleSelect())}/>
       }
     }
 
-    return !node.opened ? (
+    return !this.state.node.opened ? (
       <span>
         <Icons.CaretRight />
         <Icons.Folder />
@@ -295,22 +291,6 @@ class FSNode extends React.Component {
         <Icons.FolderOpen />
       </span>
     )
-  }
-
-  _onSelect = (node) => {
-    this.props.onSelect(node)
-  }
-
-  _onDeselect = (node) => {
-    this.props.onDeselect(node)
-  }
-
-  _onOpen = (node) => {
-    this.props.onOpen(node)
-  }
-
-  _onClose = (node) => {
-    this.props.onClose(node)
   }
 }
 

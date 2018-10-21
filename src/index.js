@@ -51,8 +51,6 @@ export class FSRoot extends React.Component {
   }
 
   render() {
-    const { noninteractive } = this.props
-
     return (
       <div className="FSRoot">
         <style dangerouslySetInnerHTML={{ __html: `
@@ -131,7 +129,7 @@ export class FSRoot extends React.Component {
           }
 
           .FSNode-icon {
-            cursor: ${noninteractive ? 'default' : 'pointer'};
+            cursor: ${this.props.noninteractive ? 'default' : 'pointer'};
             display: inline-block;
             text-align: right;
             line-height: 20px;
@@ -167,7 +165,7 @@ export class FSRoot extends React.Component {
           }
 
           .FSNode-text {
-            cursor: ${noninteractive ? 'default' : 'pointer'};
+            cursor: ${this.props.noninteractive ? 'default' : 'pointer'};
             font-weight: bold;
             display: inline-block;
             line-height: 23px;

@@ -55,49 +55,29 @@ class FSBranch extends React.Component {
 
     this._path = props.parentNode._path + '/'
     this._childNodes = []
-
-    this.state = {
-      childNodes: props.childNodes
-    }
   }
 
   componentWillUpdate() {
     this._childNodes = []
   }
 
-  componentWillReceiveProps(props) {
-    const state = {}
-    let updated = false
-
-    if (props.hasOwnProperty('childNodes')) {
-      state.childNodes = props.childNodes
-      updated = true
-    }
-
-    if (updated) {
-      this.setState(state)
-    }
-  }
-
   render() {
-    const { childNodes } = this.state
-
     return (
       <div className="FSBranch">
         <ul className="FSBranch-node-list">
-          {childNodes.map((node) => (
-            <li key={node.name} className="FSBranch-node-list-item">
+          {this.props.childNodes.map((node) => (
+            <li key={this._getNodeKey(node)} className="FSBranch-node-list-item">
               <exports.FSNode
                 ref={ref => ref && this._childNodes.push(ref)}
                 node={node}
-                parentNode={this}
-                root={this.root}
-                noninteractive={this.noninteractive}
-                depth={this.depth + 1}
-                onSelect={this._onSelect}
-                onDeselect={this._onDeselect}
-                onClose={this._onClose}
-                onOpen={this._onOpen}
+                parentNode={this.props.parentNode}
+                root={this.props.root}
+                noninteractive={this.props.noninteractive}
+                depth={this.props.depth + 1}
+                onSelect={this.props.onSelect}
+                onDeselect={this.props.onDeselect}
+                onClose={this.props.onClose}
+                onOpen={this.props.onOpen}
               />
             </li>
           ))}
@@ -106,20 +86,13 @@ class FSBranch extends React.Component {
     )
   }
 
-  _onDeselect = (node) => {
-    this.props.onDeselect(node)
-  }
-
-  _onSelect = (node) => {
-    this.props.onSelect(node)
-  }
-
-  _onClose = (node) => {
-    this.props.onClose(node)
-  }
-
-  _onOpen = (node) => {
-    this.props.onOpen(node)
+  _getNodeKey = (node) => {
+    return [
+      `name:${node.name}`,
+      `branchedOut:${!!node.childNodes}`,
+      `opened:${!!node.opened}`,
+      `selected:${!!node.selected}`,
+    ].toString()
   }
 }
 
