@@ -11,6 +11,7 @@ class FSNode extends React.Component {
     parentNode: PropTypes.instanceOf(React.Component).isRequired,
     root: PropTypes.instanceOf(React.Component).isRequired,
     depth: PropTypes.number,
+    virtual: PropTypes.bool,
     noninteractive: PropTypes.bool,
     onSelect: PropTypes.func,
     onDeselect: PropTypes.func,
@@ -20,6 +21,7 @@ class FSNode extends React.Component {
 
   static defaultProps = {
     depth: 0,
+    virtual: false,
     noninteractive: false,
     onSelect: () => {},
     onDeselect: () => {},
@@ -29,6 +31,10 @@ class FSNode extends React.Component {
 
   get depth() {
     return this.props.depth
+  }
+
+  get virtual() {
+    return this.props.virtual
   }
 
   get parentNode() {
@@ -45,6 +51,10 @@ class FSNode extends React.Component {
 
   get childNodes() {
     return [...this._childNodes]
+  }
+
+  get branchedOut() {
+    return !!this.state.node.childNodes
   }
 
   get path() {
@@ -72,6 +82,10 @@ class FSNode extends React.Component {
     this.state = {
       node: props.node
     }
+
+    if (props.virtual) {
+      this._createVirtualChildNodes()
+    }
   }
 
   componentDidMount() {
@@ -82,8 +96,35 @@ class FSNode extends React.Component {
     this._childNodes = []
   }
 
+  componentDidUpdate() {
+    if (!this.state.opened) {
+      this._createVirtualChildNodes()
+    }
+  }
+
   componentWillUnmount() {
     this._mounted = false
+  }
+
+  setState(state, callback) {
+    if (this.props.virtual) {
+      Object.assign(this.state, state)
+      callback()
+
+      return
+    }
+
+    super.setState(state, callback)
+  }
+
+  forceUpdate(callback) {
+    if (this.props.virtual) {
+      callback()
+
+      return
+    }
+
+    super.forceUpdate(callback)
   }
 
   render() {
@@ -291,6 +332,27 @@ class FSNode extends React.Component {
         <Icons.FolderOpen />
       </span>
     )
+  }
+
+  _createVirtualChildNodes() {
+    if (!this.state.node.childNodes) return
+
+    this.state.node.childNodes.forEach((node) => {
+      const ref = new FSNode({
+        node,
+        virtual: true,
+        parentNode: this,
+        root: this.props.root,
+        depth: this.props.depth + 1,
+        noninteractive: this.props.noninteractive,
+        onSelect: this.props.onSelect,
+        onDeselect: this.props.onDeselect,
+        onOpen: this.props.onOpen,
+        onClose: this.props.onClose,
+      })
+
+      this._childNodes.push(ref)
+    })
   }
 }
 

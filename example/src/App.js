@@ -5,7 +5,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <FSTree childNodes={[
+        <FSTree onSelect={() => { debugger }} childNodes={[
           { name: 'file' },
           { name: 'added file', mode: 'a' },
           { name: 'deleted file', mode: 'd' },
