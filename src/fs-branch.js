@@ -65,8 +65,8 @@ class FSBranch extends React.Component {
     return (
       <div className="FSBranch">
         <ul className="FSBranch-node-list">
-          {this.props.childNodes.map((node) => (
-            <li key={this._getNodeKey(node)} className="FSBranch-node-list-item">
+          {this.props.childNodes.map((node, i) => (
+            <li key={`${i}_${node.name}`} className="FSBranch-node-list-item">
               <exports.FSNode
                 ref={ref => ref && this._childNodes.push(ref)}
                 node={node}
@@ -84,15 +84,6 @@ class FSBranch extends React.Component {
         </ul>
       </div>
     )
-  }
-
-  _getNodeKey = (node) => {
-    return [
-      `name:${node.name}`,
-      `branchedOut:${!!node.childNodes}`,
-      `opened:${!!node.opened}`,
-      `selected:${!!node.selected}`,
-    ].toString()
   }
 }
 
