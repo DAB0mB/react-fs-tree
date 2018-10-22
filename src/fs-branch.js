@@ -13,8 +13,10 @@ class FSBranch extends React.Component {
     noninteractive: PropTypes.bool,
     onSelect: PropTypes.func,
     onDeselect: PropTypes.func,
+    onSelectChange: PropTypes.func,
     onClose: PropTypes.func,
     onOpen: PropTypes.func,
+    onOpenChange: PropTypes.func,
   }
 
   static defaultProps = {
@@ -22,8 +24,10 @@ class FSBranch extends React.Component {
     noninteractive: false,
     onSelect: () => {},
     onDeselect: () => {},
+    onSelectChange: () => {},
     onClose: () => {},
     onOpen: () => {},
+    onOpenChange: () => {},
   }
 
   get depth() {
@@ -76,8 +80,10 @@ class FSBranch extends React.Component {
                 depth={this.props.depth + 1}
                 onSelect={this.props.onSelect}
                 onDeselect={this.props.onDeselect}
+                onSelectChange={this.props.onSelectChange}
                 onClose={this.props.onClose}
                 onOpen={this.props.onOpen}
+                onOpenChange={this.props.onOpenChange}
               />
             </li>
           ))}

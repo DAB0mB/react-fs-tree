@@ -1,11 +1,11 @@
 import React from 'react'
-import FSTree from 'react-fs-tree'
+import FSRoot from 'react-fs-tree'
 
 class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <FSTree onSelect={() => { debugger }} childNodes={[
+        <FSRoot childNodes={[
           { name: 'file' },
           { name: 'added file', mode: 'a' },
           { name: 'deleted file', mode: 'd' },

@@ -15,8 +15,10 @@ class FSNode extends React.Component {
     noninteractive: PropTypes.bool,
     onSelect: PropTypes.func,
     onDeselect: PropTypes.func,
+    onSelectChange: PropTypes.func,
     onClose: PropTypes.func,
     onOpen: PropTypes.func,
+    onOpenChange: PropTypes.func,
   }
 
   static defaultProps = {
@@ -25,8 +27,10 @@ class FSNode extends React.Component {
     noninteractive: false,
     onSelect: () => {},
     onDeselect: () => {},
+    onSelectChange: () => {},
     onClose: () => {},
     onOpen: () => {},
+    onOpenChange: () => {},
   }
 
   get depth() {
@@ -106,27 +110,6 @@ class FSNode extends React.Component {
     this._mounted = false
   }
 
-  setState(state, callback) {
-    if (this.props.virtual) {
-      Object.assign(this.state, state)
-      callback()
-
-      return
-    }
-
-    super.setState(state, callback)
-  }
-
-  forceUpdate(callback) {
-    if (this.props.virtual) {
-      callback()
-
-      return
-    }
-
-    super.forceUpdate(callback)
-  }
-
   render() {
     return (
       <div className="FSNode">
@@ -146,8 +129,10 @@ class FSNode extends React.Component {
                 noninteractive={this.props.noninteractive}
                 onSelect={this.props.onSelect}
                 onDeselect={this.props.onDeselect}
+                onSelectChange={this.props.onSelectChange}
                 onOpen={this.props.onOpen}
                 onClose={this.props.onClose}
+                onOpenChange={this.props.onOpenChange}
               />
             )}
           </div>
@@ -159,6 +144,7 @@ class FSNode extends React.Component {
   select(onSelect = () => {}) {
     const callback = (resolve = Promise.resolve.bind(Promise)) => {
       this.props.onSelect(this)
+      this.props.onSelectChange(this)
       onSelect(this)
 
       return resolve(this)
@@ -187,6 +173,7 @@ class FSNode extends React.Component {
   deselect(onDeselect = () => {}) {
     const callback = (resolve = Promise.resolve.bind(Promise)) => {
       this.props.onDeselect(this)
+      this.props.onSelectChange(this)
       onDeselect(this)
 
       return resolve(this)
@@ -219,6 +206,7 @@ class FSNode extends React.Component {
   close(onClose = () => {}) {
     const callback = (resolve = Promise.resolve.bind(Promise)) => {
       this.props.onClose(this)
+      this.props.onOpenChange(this)
       onClose(this)
 
       return resolve(this)
@@ -241,6 +229,7 @@ class FSNode extends React.Component {
   open(onOpen = () => {}) {
     const callback = (resolve = Promise.resolve.bind(Promise)) => {
       this.props.onOpen(this)
+      this.props.onOpenChange(this)
       onOpen(this)
 
       return resolve(this)
@@ -347,8 +336,10 @@ class FSNode extends React.Component {
         noninteractive: this.props.noninteractive,
         onSelect: this.props.onSelect,
         onDeselect: this.props.onDeselect,
+        onSelectChange: this.props.onSelectChange,
         onOpen: this.props.onOpen,
         onClose: this.props.onClose,
+        onOpenChange: this.props.onOpenChange,
       })
 
       this._childNodes.push(ref)
