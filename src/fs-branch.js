@@ -4,6 +4,7 @@ import React from 'react'
 import { exports } from './module'
 import Shapes from './shapes'
 
+// TEST
 class FSBranch extends React.Component {
   static propTypes = {
     childNodes: PropTypes.arrayOf(Shapes.Node).isRequired,
