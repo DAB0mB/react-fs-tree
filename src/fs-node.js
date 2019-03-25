@@ -58,7 +58,7 @@ class FSNode extends React.Component {
   }
 
   get branchedOut() {
-    return !!this.state.node.childNodes
+    return !!this.props.node.childNodes
   }
 
   get path() {
@@ -66,15 +66,15 @@ class FSNode extends React.Component {
   }
 
   get name() {
-    return this.state.node.name
+    return this.props.node.name
   }
 
   get opened() {
-    return this.state.node.opened
+    return this.state.opened
   }
 
   get selected() {
-    return this.state.node.selected
+    return this.state.selected
   }
 
   constructor(props) {
@@ -117,12 +117,12 @@ class FSNode extends React.Component {
           <div className="FSNode-node" style={this._getNodeStyle()}>
             <div className="FSNode-descriptor">
               <div className="FSNode-icon" onClick={!this.props.noninteractive && (() => this.toggleOpen())}>{this._getIcon()}</div>
-              <div className="FSNode-text" onClick={!this.props.noninteractive && (() => this.toggleSelect())}>{this.state.node.name}</div>
+              <div className="FSNode-text" onClick={!this.props.noninteractive && (() => this.toggleSelect())}>{this.props.node.name}</div>
             </div>
-            {this.state.node.childNodes && this.state.node.opened && (
+            {this.props.node.childNodes && this.state.opened && (
               <exports.FSBranch
                 ref={ref => ref && (this._childNodes = ref._childNodes)}
-                childNodes={this.state.node.childNodes}
+                childNodes={this.props.node.childNodes}
                 parentNode={this}
                 root={this.props.root}
                 depth={this.props.depth}
@@ -150,10 +150,10 @@ class FSNode extends React.Component {
       return resolve(this)
     }
 
-    if (this.state.node.selected) return callback()
+    if (this.state.selected) return callback()
 
     if (!this._mounted) {
-      const node = this.state.node
+      const node = this.state
       node.selected = true
 
       return callback()
@@ -161,7 +161,7 @@ class FSNode extends React.Component {
 
     return new Promise((resolve) => {
       this.setState({
-        node: Object.assign(this.state.node, {
+        node: Object.assign(this.state, {
           selected: true
         })
       }, () => {
@@ -179,10 +179,10 @@ class FSNode extends React.Component {
       return resolve(this)
     }
 
-    if (!this.state.node.selected) return callback()
+    if (!this.state.selected) return callback()
 
     if (!this._mounted) {
-      const node = this.state.node
+      const node = this.state
       node.selected = false
 
       return callback()
@@ -190,7 +190,7 @@ class FSNode extends React.Component {
 
     return new Promise((resolve) => {
       this.setState({
-        node: Object.assign(this.state.node, {
+        node: Object.assign(this.state, {
           selected: false
         })
       }, () => {
@@ -200,7 +200,7 @@ class FSNode extends React.Component {
   }
 
   toggleSelect(onToggle) {
-    return this.state.node.selected ? this.deselect(onToggle) : this.select(onToggle)
+    return this.state.selected ? this.deselect(onToggle) : this.select(onToggle)
   }
 
   close(onClose = () => {}) {
@@ -212,12 +212,12 @@ class FSNode extends React.Component {
       return resolve(this)
     }
 
-    if (!this.state.node.childNodes) return callback()
-    if (!this.state.node.opened) return callback()
+    if (!this.props.node.childNodes) return callback()
+    if (!this.state.opened) return callback()
 
     return new Promise((resolve) => {
       this.setState({
-        node: Object.assign(this.state.node, {
+        node: Object.assign(this.state, {
           opened: false
         })
       }, () => {
@@ -235,12 +235,12 @@ class FSNode extends React.Component {
       return resolve(this)
     }
 
-    if (!this.state.node.childNodes) return callback()
-    if (this.state.node.opened) return callback()
+    if (!this.props.node.childNodes) return callback()
+    if (this.state.opened) return callback()
 
     return new Promise((resolve) => {
       this.setState({
-        node: Object.assign(this.state.node, {
+        node: Object.assign(this.state, {
           opened: true
         })
       }, () => {
@@ -250,11 +250,11 @@ class FSNode extends React.Component {
   }
 
   toggleOpen(onToggle) {
-    return this.state.node.opened ? this.close(onToggle) : this.open(onToggle)
+    return this.state.opened ? this.close(onToggle) : this.open(onToggle)
   }
 
   _getWrapClass = () => {
-    const selected = this.state.node.selected ? 'FSNode-selected' : 'FSNode-deselected'
+    const selected = this.state.selected ? 'FSNode-selected' : 'FSNode-deselected'
 
     return `FSNode-wrap ${selected}`
   }
@@ -262,7 +262,7 @@ class FSNode extends React.Component {
   _getDepthSize = (depth = this.depth) => {
     let padding = 23 * depth
 
-    if (!this.state.node.childNodes) {
+    if (!this.props.node.childNodes) {
       padding += 14
     }
 
@@ -286,8 +286,8 @@ class FSNode extends React.Component {
   }
 
   _getIcon = () => {
-    if (!this.state.node.childNodes) {
-      switch (this.state.node.mode) {
+    if (!this.props.node.childNodes) {
+      switch (this.state.mode) {
         case 'a': return (
           <span onClick={!this.props.noninteractive && (() => this.toggleSelect())}>
             <span className='FSNode-mode FSNode-mode-a'>A</span>
@@ -310,7 +310,7 @@ class FSNode extends React.Component {
       }
     }
 
-    return !this.state.node.opened ? (
+    return !this.state.opened ? (
       <span>
         <Icons.CaretRight />
         <Icons.Folder />
@@ -324,9 +324,9 @@ class FSNode extends React.Component {
   }
 
   _createVirtualChildNodes() {
-    if (!this.state.node.childNodes) return
+    if (!this.props.node.childNodes) return
 
-    this.state.node.childNodes.forEach((node) => {
+    this.props.node.childNodes.forEach((node) => {
       const ref = new FSNode({
         node,
         virtual: true,
