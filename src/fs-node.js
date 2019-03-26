@@ -80,7 +80,7 @@ class FSNode extends React.Component {
   constructor(props) {
     super(props)
 
-    this._path = props.parentNode._path + props.node.name
+    this._path = props.parentNode._path + '/' + props.node.name
     this._childNodes = []
 
     this.state = {
