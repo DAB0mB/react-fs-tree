@@ -74,6 +74,7 @@ class FSBranch extends React.Component {
               <exports.FSNode
                 ref={ref => ref && this._childNodes.push(ref)}
                 node={node}
+                branch={this}
                 parentNode={this.props.parentNode}
                 root={this.props.root}
                 noninteractive={this.props.noninteractive}

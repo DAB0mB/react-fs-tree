@@ -8,6 +8,7 @@ import Shapes from './shapes'
 class FSNode extends React.Component {
   static propTypes = {
     node: Shapes.Node.isRequired,
+    branch: PropTypes.instanceOf(React.Component).isRequired,
     parentNode: PropTypes.instanceOf(React.Component).isRequired,
     root: PropTypes.instanceOf(React.Component).isRequired,
     depth: PropTypes.number,
@@ -80,7 +81,7 @@ class FSNode extends React.Component {
   constructor(props) {
     super(props)
 
-    this._path = props.parentNode._path + props.node.name
+    this._path = props.branch._path + props.node.name
     this._childNodes = []
 
     this.state = {
@@ -330,6 +331,7 @@ class FSNode extends React.Component {
       const ref = new FSNode({
         node,
         virtual: true,
+        branch: this.props.branch,
         parentNode: this,
         root: this.props.root,
         depth: this.props.depth + 1,

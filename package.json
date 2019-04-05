@@ -5,7 +5,7 @@
   "main": "build/react-fs-tree.js",
   "scripts": {
     "build": "webpack --config webpack_config.js",
-    "prepublish": "npm run build"
+    "prepublish": "yarn build"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
