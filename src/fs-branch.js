@@ -61,7 +61,7 @@ class FSBranch extends React.Component {
     this._childNodes = []
   }
 
-  componentWillUpdate() {
+  componentWillUpdate(nextProps, nextState) {
     this._childNodes = []
   }
 
@@ -69,24 +69,31 @@ class FSBranch extends React.Component {
     return (
       <div className="FSBranch">
         <ul className="FSBranch-node-list">
-          {this.props.childNodes.map((node, i) => (
-            <li key={`${i}_${node.name}`} className="FSBranch-node-list-item">
-              <exports.FSNode
-                ref={ref => ref && this._childNodes.push(ref)}
-                node={node}
-                parentNode={this.props.parentNode}
-                root={this.props.root}
-                noninteractive={this.props.noninteractive}
-                depth={this.props.depth + 1}
-                onSelect={this.props.onSelect}
-                onDeselect={this.props.onDeselect}
-                onSelectChange={this.props.onSelectChange}
-                onClose={this.props.onClose}
-                onOpen={this.props.onOpen}
-                onOpenChange={this.props.onOpenChange}
-              />
-            </li>
-          ))}
+          {this.props.childNodes.map((node, i) => {
+            const hasChildNodes = typeof node.hasChildNodes === "undefined" ? true : node.hasChildNodes;
+
+            return (
+              <li key={`${i}_${node.name}`} className="FSBranch-node-list-item">
+                <exports.FSNode
+                  ref={ref => ref && this._childNodes.push(ref)}
+                  node={node}
+                  parentNode={this.props.parentNode}
+                  root={this.props.root}
+                  noninteractive={this.props.noninteractive}
+                  hasChildNodes={hasChildNodes}
+                  depth={this.props.depth + 1}
+                  onSelect={this.props.onSelect}
+                  onDeselect={this.props.onDeselect}
+                  onSelectChange={this.props.onSelectChange}
+                  onClose={this.props.onClose}
+                  onOpen={this.props.onOpen}
+                  onOpenChange={this.props.onOpenChange}
+                />
+              </li>
+            );
+
+          }
+          )}
         </ul>
       </div>
     )
