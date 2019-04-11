@@ -2,7 +2,7 @@
   "name": "react-fs-tree",
   "version": "0.1.0",
   "description": "A recursive FS tree React.Component",
-  "main": "src/index.js",
+  "main": "build/react-fs-tree.js",
   "scripts": {
     "build": "webpack --config webpack_config.js",
     "prepublish": "npm run build"

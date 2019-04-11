@@ -17,6 +17,7 @@ class FSBranch extends React.Component {
     onClose: PropTypes.func,
     onOpen: PropTypes.func,
     onOpenChange: PropTypes.func,
+    hasChildNodes: PropTypes.bool
   }
 
   static defaultProps = {
@@ -61,7 +62,7 @@ class FSBranch extends React.Component {
     this._childNodes = []
   }
 
-  componentWillUpdate(nextProps, nextState) {
+  componentWillUpdate() {
     this._childNodes = []
   }
 

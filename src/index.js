@@ -17,6 +17,7 @@ export class FSRoot extends React.Component {
     onDeselect: PropTypes.func,
     onClose: PropTypes.func,
     onOpen: PropTypes.func,
+    hasChildNodes: PropTypes.bool
   }
 
   static defaultProps = {

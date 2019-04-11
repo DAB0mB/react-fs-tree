@@ -19,6 +19,7 @@ class FSNode extends React.Component {
     onClose: PropTypes.func,
     onOpen: PropTypes.func,
     onOpenChange: PropTypes.func,
+    hasChildNodes: PropTypes.bool
   }
 
   static defaultProps = {
