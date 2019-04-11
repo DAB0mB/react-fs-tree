@@ -7,6 +7,10 @@
     "build": "webpack --config webpack_config.js",
     "prepublish": "npm run build"
   },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:EidosMedia/react-fs-tree.git"
+  },
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-eslint": "^9.0.0",
