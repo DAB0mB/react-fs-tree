@@ -90,12 +90,12 @@ export class FSRoot extends React.Component {
           .FSBranch-node-list {
             margin: 0;
             padding: 0;
-            margin-top: 15px;
+            margin-top: 5px;
             list-style-type: none;
           }
 
           .FSBranch-node-list-item {
-            margin-bottom: 15px;
+            margin-bottom: 5px;
           }
 
           .FSNode {
