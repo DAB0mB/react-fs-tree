@@ -116,8 +116,8 @@ class FSNode extends React.Component {
         <div className={this._getWrapClass()} style={this._getWrapStyle()}>
           <div className="FSNode-node" style={this._getNodeStyle()}>
             <div className="FSNode-descriptor">
-              <div className="FSNode-icon" onClick={!this.props.noninteractive && (() => this.toggleOpen())}>{this._getIcon()}</div>
-              <div className="FSNode-text" onClick={!this.props.noninteractive && (() => this.toggleSelect())}>{this.props.node.name}</div>
+              <div className="FSNode-icon" onClick={this.props.hasChildNodes ? (() => this.toggleOpen()) : null }>{this._getIcon()}</div>
+              <div className="FSNode-text" onClick={!this.props.noninteractive ? (() => this.toggleSelect()) : null }>{this.props.node.name}</div>
             </div>
             {this.props.node.childNodes && this.state.opened && (
               <exports.FSBranch
@@ -286,6 +286,7 @@ class FSNode extends React.Component {
   }
 
   _getIcon = () => {
+    const Caret = !this.state.opened ? Icons.CaretRight : Icons.CaretDown;
     if (!this.props.node.childNodes) {
       switch (this.state.mode) {
         case 'a': return (
@@ -308,19 +309,26 @@ class FSNode extends React.Component {
         )
         default: return <Icons.File onClick={!this.props.noninteractive && (() => this.toggleSelect())}/>
       }
+    } else if ( !this.props.hasChildNodes ) {
+
+      /**
+       * The prop hasChildNodes is passed as an attribute of `childNodes` object.
+       * It maps the `childCount` property contained in the response of workfolder response.
+       **/
+
+      return (  
+        <span><Icons.Workfolder /></span>
+      );
+
     }
 
-    return !this.state.opened ? (
+    return (
       <span>
-        <Icons.CaretRight />
-        <Icons.Folder />
-      </span>
-    ) : (
-      <span>
-        <Icons.CaretDown />
-        <Icons.FolderOpen />
+        <Caret />
+        <Icons.Workfolder />
       </span>
     )
+
   }
 
   _createVirtualChildNodes() {
