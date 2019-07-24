@@ -839,6 +839,8 @@ const styles = props => `
     * TREE
     */
     
+
+
     .react-em-tree .rfst-icon {
         display: inline-block;
         font-size: inherit;
@@ -869,6 +871,7 @@ const styles = props => `
     }
     
     .react-em-tree .FSRoot {
+        font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
         width: 100%;
         overflow: scroll;
         height: 180px;
