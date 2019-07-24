@@ -109,9 +109,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _fs_node__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(7);
 /* harmony import */ var _module__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(5);
 /* harmony import */ var _shapes__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(6);
+/* harmony import */ var _assets_style__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(9);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _class, _temp;
+
 
 
 
@@ -153,127 +155,7 @@ let FSRoot = (_temp = _class = class FSRoot extends react__WEBPACK_IMPORTED_MODU
     return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(
       'div',
       { className: 'FSRoot' },
-      react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement('style', { dangerouslySetInnerHTML: { __html: `
-          .rfst-icon {
-            display: inline-block;
-            font-size: inherit;
-            height: 16px;
-            overflow: visible;
-            vertical-align: -2px;
-            margin-right: 5px;
-          }
-
-          .rfst-icon-file {
-            width: 18px;
-          }
-
-          .rfst-icon-folder {
-            width: 18px;
-          }
-
-          .rfst-icon-folder-open {
-            width: 18px;
-          }
-
-          .rfst-icon-caret-right {
-            width: 6px;
-          }
-
-          .rfst-icon-caret-down {
-            width: 10px;
-          }
-
-          .FSRoot {
-            margin-left: -18px;
-          }
-
-          .FSBranch-node-list {
-            margin: 0;
-            padding: 0;
-            margin-top: 5px;
-            list-style-type: none;
-          }
-
-          .FSBranch-node-list-item {
-            margin-bottom: 5px;
-          }
-
-          .FSNode {
-            width: 100%;
-            height: 20px;
-            display: inline-block;
-          }
-
-          .FSNode-wrap {
-            height: 100%;
-          }
-
-          .FSNode-wrap.FSNode-selected {
-            color: white;
-            background-color: #4c84ff;
-          }
-
-          .FSNode-wrap.FSNode-deselected {
-            color: #5b6f9d;
-          }
-
-          .FSNode-node {
-            user-select: none;
-            cursor: default;
-            transform: translateY(-2px);
-          }
-
-          .FSNode-descriptor {
-            display: flex;
-            white-space: nowrap;
-          }
-
-          .FSNode-icon {
-            cursor: ${this.props.noninteractive ? 'default' : 'pointer'};
-            display: inline-block;
-            text-align: right;
-            line-height: 20px;
-            width: 38px;
-            height: 100%;
-            user-select: none;
-            font-weight: bold;
-            transform: translateY(2.5px);
-          }
-
-          .FSNode-mode {
-            display: inline-block;
-            width: 18px;
-            height: 18px;
-            line-height: 18px;
-            text-align: center;
-            font-weight: 800;
-            margin-left: -26px;
-            margin-right: -0.5px;
-            color: #5b6f9d;
-          }
-
-          .FSNode-mode.FSNode-mode-a {
-            color: #356611;
-          }
-
-          .FSNode-mode.FSNode-mode-d {
-            color: #951b1b;
-          }
-
-          .FSNode-wrap.FSNode-selected .FSNode-mode {
-            color: white;
-          }
-
-          .FSNode-text {
-            cursor: ${this.props.noninteractive ? 'default' : 'pointer'};
-            font-weight: bold;
-            display: inline-block;
-            line-height: 23px;
-            height: 100%;
-            user-select: none;
-            text-overflow: ellipsis;
-          }
-        ` } }),
+      react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement('style', { dangerouslySetInnerHTML: { __html: Object(_assets_style__WEBPACK_IMPORTED_MODULE_6__["default"])(this.props) } }),
       react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(FSBranch, _extends({}, this.props, {
         ref: ref => ref && (this._childNodes = ref._childNodes),
         parentNode: this,
@@ -938,6 +820,188 @@ const Workfolder = props => react__WEBPACK_IMPORTED_MODULE_0___default.a.createE
   CaretDown,
   Workfolder
 });
+
+/***/ }),
+/* 9 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _lessVariables__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(10);
+
+
+const styles = props => `
+    /*
+    * TREE
+    */
+    
+    .react-em-tree .rfst-icon {
+        display: inline-block;
+        font-size: inherit;
+        height: 16px;
+        overflow: visible;
+        vertical-align: -2px;
+        margin-right: 5px;
+    }
+    
+    .react-em-tree .rfst-icon-file {
+        width: 18px;
+    }
+    
+    .react-em-tree .rfst-icon-folder {
+        width: 18px;
+    }
+    
+    .react-em-tree .rfst-icon-folder-open {
+        width: 18px;
+    }
+    
+    .react-em-tree .rfst-icon-caret-right {
+        width: 6px;
+    }
+    
+    .react-em-tree .rfst-icon-caret-down {
+        width: 10px;
+    }
+    
+    .react-em-tree .FSRoot {
+        width: 100%;
+        overflow: scroll;
+        height: 180px;
+        border: 1px solid ${_lessVariables__WEBPACK_IMPORTED_MODULE_0__["LESS_VARIABLES"]['emgray-darker']}; /*TODO*/
+        margin-left: 0;
+    }
+    
+    .react-em-tree .FSBranch-node-list {
+        margin: 0;
+        padding: 0;
+        margin-top: 5px;
+        list-style-type: none;
+    }
+    
+    .react-em-tree .FSBranch-node-list-item {
+        margin-bottom: 5px;
+    }
+    
+    .react-em-tree .FSNode {
+        width: 100%;
+        height: 20px;
+        display: inline-block;
+    }
+    
+    .react-em-tree .FSNode-wrap {
+        height: 100%;
+    }
+    
+    .react-em-tree .FSNode-wrap.FSNode-selected {
+        color: white;
+        background-color: transparent;
+    }
+    
+    .react-em-tree .FSNode-wrap.FSNode-selected > .FSNode-node > .FSNode-descriptor {
+        background-color: #beebff;
+        border-radius: 2px;
+        box-shadow: inset 0 0 1px #999;
+        padding: 2px 6px;
+    }
+    
+    .react-em-tree .FSNode-wrap.FSNode-deselected {
+        color: #5b6f9d;
+    }
+    
+    .react-em-tree .FSNode-node {
+        user-select: none;
+        cursor: default;
+        transform: translateY(-2px);
+    }
+    
+    .react-em-tree .FSNode-descriptor {
+        white-space: nowrap;
+        display: inline-flex;
+        padding: 2px 6px;
+    }
+    
+    .react-em-tree .FSNode-icon {
+        cursor: ${props.noninteractive ? 'default' : "pointer"}
+        display: inline-block;
+        text-align: right;
+        line-height: 20px;
+        width: 38px;
+        height: 100%;
+        user-select: none;
+        font-weight: bold;
+        transform: translateY(2.5px);
+    }
+    
+    .react-em-tree .FSNode-mode {
+        display: inline-block;
+        width: 18px;
+        height: 18px;
+        line-height: 18px;
+        text-align: center;
+        font-weight: 800;
+        margin-left: -26px;
+        margin-right: -0.5px;
+        color: #5b6f9d;
+    }
+    
+    .react-em-tree .FSNode-mode.FSNode-mode-a {
+        color: #356611;
+    }
+    
+    .react-em-tree .FSNode-mode.FSNode-mode-d {
+        color: #951b1b;
+    }
+    
+    .react-em-tree .FSNode-wrap.FSNode-selected .FSNode-mode {
+        color: white;
+    }
+    
+    .react-em-tree .FSNode-text {
+        cursor: ${props.noninteractive ? 'default' : "pointer"}
+        display: inline-block;
+        line-height: 23px;
+        height: 100%;
+        user-select: none;
+        text-overflow: ellipsis;
+        color: ${_lessVariables__WEBPACK_IMPORTED_MODULE_0__["LESS_VARIABLES"]['text-color']};
+        font-weight: normal;
+    }
+    
+    /*
+    * NO RESULTS
+    */
+   .react-em-tree .no-results {
+        width: 100%;
+        overflow: scroll;
+        height: 180px;
+        border: 1px solid ${_lessVariables__WEBPACK_IMPORTED_MODULE_0__["LESS_VARIABLES"]['emgray-darker']};
+        margin-left: 0;
+    }
+    
+    .react-em-tree .no-results p {
+        padding: 20px;
+        margin: 0;
+    }
+
+    `;
+
+/* harmony default export */ __webpack_exports__["default"] = (styles);
+
+/***/ }),
+/* 10 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LESS_VARIABLES", function() { return LESS_VARIABLES; });
+const LESS_VARIABLES = {
+    'brand-primary': '#0F56BC',
+    'brand-primary-lightest': '#F1F8FF',
+    'font-family-sans-serif': '"Source Sans Pro", Helvetica, Arial, sans-serif',
+    'emgray-darker': '#ccc',
+    'text-color': '#505050'
+};
 
 /***/ })
 /******/ ]);

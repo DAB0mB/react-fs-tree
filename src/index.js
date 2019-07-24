@@ -5,6 +5,7 @@ import './fs-branch'
 import './fs-node'
 import { exports } from './module'
 import Shapes from './shapes'
+import styles from './assets/style';
 
 export const FSBranch = exports.FSBranch
 export const FSNode = exports.FSNode
@@ -54,127 +55,7 @@ export class FSRoot extends React.Component {
   render() {
     return (
       <div className="FSRoot">
-        <style dangerouslySetInnerHTML={{ __html: `
-          .rfst-icon {
-            display: inline-block;
-            font-size: inherit;
-            height: 16px;
-            overflow: visible;
-            vertical-align: -2px;
-            margin-right: 5px;
-          }
-
-          .rfst-icon-file {
-            width: 18px;
-          }
-
-          .rfst-icon-folder {
-            width: 18px;
-          }
-
-          .rfst-icon-folder-open {
-            width: 18px;
-          }
-
-          .rfst-icon-caret-right {
-            width: 6px;
-          }
-
-          .rfst-icon-caret-down {
-            width: 10px;
-          }
-
-          .FSRoot {
-            margin-left: -18px;
-          }
-
-          .FSBranch-node-list {
-            margin: 0;
-            padding: 0;
-            margin-top: 5px;
-            list-style-type: none;
-          }
-
-          .FSBranch-node-list-item {
-            margin-bottom: 5px;
-          }
-
-          .FSNode {
-            width: 100%;
-            height: 20px;
-            display: inline-block;
-          }
-
-          .FSNode-wrap {
-            height: 100%;
-          }
-
-          .FSNode-wrap.FSNode-selected {
-            color: white;
-            background-color: #4c84ff;
-          }
-
-          .FSNode-wrap.FSNode-deselected {
-            color: #5b6f9d;
-          }
-
-          .FSNode-node {
-            user-select: none;
-            cursor: default;
-            transform: translateY(-2px);
-          }
-
-          .FSNode-descriptor {
-            display: flex;
-            white-space: nowrap;
-          }
-
-          .FSNode-icon {
-            cursor: ${this.props.noninteractive ? 'default' : 'pointer'};
-            display: inline-block;
-            text-align: right;
-            line-height: 20px;
-            width: 38px;
-            height: 100%;
-            user-select: none;
-            font-weight: bold;
-            transform: translateY(2.5px);
-          }
-
-          .FSNode-mode {
-            display: inline-block;
-            width: 18px;
-            height: 18px;
-            line-height: 18px;
-            text-align: center;
-            font-weight: 800;
-            margin-left: -26px;
-            margin-right: -0.5px;
-            color: #5b6f9d;
-          }
-
-          .FSNode-mode.FSNode-mode-a {
-            color: #356611;
-          }
-
-          .FSNode-mode.FSNode-mode-d {
-            color: #951b1b;
-          }
-
-          .FSNode-wrap.FSNode-selected .FSNode-mode {
-            color: white;
-          }
-
-          .FSNode-text {
-            cursor: ${this.props.noninteractive ? 'default' : 'pointer'};
-            font-weight: bold;
-            display: inline-block;
-            line-height: 23px;
-            height: 100%;
-            user-select: none;
-            text-overflow: ellipsis;
-          }
-        ` }} />
+        <style dangerouslySetInnerHTML={{ __html: styles(this.props)}} />
         <FSBranch
           {...this.props}
           ref={ref => ref && (this._childNodes = ref._childNodes)}
