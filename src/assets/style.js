@@ -41,7 +41,7 @@ const styles = props => (
     .react-em-tree .FSRoot {
         font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
         width: 100%;
-        overflow: scroll;
+        overflow: auto;
         height: 180px;
         border: 1px solid ${LESS_VARIABLES['emgray-darker']}; /*TODO*/
         margin-left: 0;
