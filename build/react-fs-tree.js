@@ -154,13 +154,17 @@ let FSRoot = (_temp = _class = class FSRoot extends react__WEBPACK_IMPORTED_MODU
   render() {
     return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(
       'div',
-      { className: 'FSRoot' },
-      react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement('style', { dangerouslySetInnerHTML: { __html: Object(_assets_style__WEBPACK_IMPORTED_MODULE_6__["default"])(this.props) } }),
-      react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(FSBranch, _extends({}, this.props, {
-        ref: ref => ref && (this._childNodes = ref._childNodes),
-        parentNode: this,
-        root: this
-      }))
+      { className: 'react-em-tree' },
+      react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(
+        'div',
+        { className: 'FSRoot' },
+        react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement('style', { dangerouslySetInnerHTML: { __html: Object(_assets_style__WEBPACK_IMPORTED_MODULE_6__["default"])(this.props) } }),
+        react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(FSBranch, _extends({}, this.props, {
+          ref: ref => ref && (this._childNodes = ref._childNodes),
+          parentNode: this,
+          root: this
+        }))
+      )
     );
   }
 }, _class.propTypes = {

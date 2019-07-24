@@ -54,14 +54,16 @@ export class FSRoot extends React.Component {
 
   render() {
     return (
-      <div className="FSRoot">
-        <style dangerouslySetInnerHTML={{ __html: styles(this.props)}} />
-        <FSBranch
-          {...this.props}
-          ref={ref => ref && (this._childNodes = ref._childNodes)}
-          parentNode={this}
-          root={this}
-        />
+      <div className="react-em-tree">
+        <div className="FSRoot">
+          <style dangerouslySetInnerHTML={{ __html: styles(this.props)}} />
+          <FSBranch
+            {...this.props}
+            ref={ref => ref && (this._childNodes = ref._childNodes)}
+            parentNode={this}
+            root={this}
+          />
+        </div>
       </div>
     )
   }
