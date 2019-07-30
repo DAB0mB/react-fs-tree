@@ -8,7 +8,7 @@ module.exports = {
     path.resolve(__dirname, 'src')
   ],
   output: {
-    path: path.resolve(__dirname, 'build'),
+    path: path.resolve(__dirname, 'lib'),
     filename: 'react-fs-tree.js',
     library: '',
     libraryTarget: 'commonjs2'

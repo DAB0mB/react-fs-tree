@@ -161,13 +161,16 @@ class FSNode extends React.Component {
     }
 
     return new Promise((resolve) => {
-      this.setState({
-        node: Object.assign(this.state, {
-          selected: true
+      if(this._mounted) {
+        this.setState({
+          node: Object.assign(this.state, {
+            selected: true
+          })
+        }, () => {
+          callback(resolve)
         })
-      }, () => {
-        callback(resolve)
-      })
+      }
+      callback(resolve)
     })
   }
 
@@ -190,13 +193,16 @@ class FSNode extends React.Component {
     }
 
     return new Promise((resolve) => {
-      this.setState({
-        node: Object.assign(this.state, {
-          selected: false
+      if(this._mounted){
+        this.setState({
+          node: Object.assign(this.state, {
+            selected: false
+          })
+        }, () => {
+          callback(resolve)
         })
-      }, () => {
-        callback(resolve)
-      })
+      }
+      callback(resolve)
     })
   }
 

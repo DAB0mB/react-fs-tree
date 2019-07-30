@@ -2,10 +2,12 @@
   "name": "react-fs-tree",
   "version": "0.1.0",
   "description": "A recursive FS tree React.Component",
-  "main": "build/react-fs-tree.js",
+  "main": "lib/react-fs-tree.js",
+  "files": [
+    "lib"
+  ],
   "scripts": {
-    "build": "webpack --config webpack_config.js",
-    "prepublish": "npm run build"
+    "prepare": "rimraf lib && webpack --config webpack_config.js"
   },
   "repository": {
     "type": "git",
@@ -29,7 +31,8 @@
     "react-dom": "^16.5.2",
     "webpack": "^4.16.1",
     "webpack-cli": "^3.1.0",
-    "webpack-node-externals": "^1.7.2"
+    "webpack-node-externals": "^1.7.2",
+    "rimraf": "^2.6.3"
   },
   "peerDependencies": {
     "prop-types": "*",
