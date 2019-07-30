@@ -94,7 +94,7 @@ class FSNode extends React.Component {
   }
 
   componentDidMount() {
-    this._mounted = true
+    this._mounted = true;
   }
 
   componentWillUpdate() {
@@ -169,6 +169,7 @@ class FSNode extends React.Component {
         }, () => {
           callback(resolve)
         })
+        return;
       }
       callback(resolve)
     })
@@ -201,6 +202,7 @@ class FSNode extends React.Component {
         }, () => {
           callback(resolve)
         })
+        return;
       }
       callback(resolve)
     })
@@ -223,13 +225,17 @@ class FSNode extends React.Component {
     if (!this.state.opened) return callback()
 
     return new Promise((resolve) => {
-      this.setState({
-        node: Object.assign(this.state, {
-          opened: false
+      if(this._mounted) {
+        this.setState({
+          node: Object.assign(this.state, {
+            opened: false
+          })
+        }, () => {
+          callback(resolve)
         })
-      }, () => {
-        callback(resolve)
-      })
+        return;
+      }
+      callback(resolve)
     })
   }
 
@@ -246,13 +252,17 @@ class FSNode extends React.Component {
     if (this.state.opened) return callback()
 
     return new Promise((resolve) => {
-      this.setState({
-        node: Object.assign(this.state, {
-          opened: true
+      if(this._mounted) {
+        this.setState({
+          node: Object.assign(this.state, {
+            opened: true
+          })
+        }, () => {
+          callback(resolve)
         })
-      }, () => {
-        callback(resolve)
-      })
+        return;
+      }
+      callback(resolve)
     })
   }
 
