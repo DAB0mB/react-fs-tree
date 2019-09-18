@@ -41,7 +41,7 @@ const styles = props => (
         font-size: 14px;
         width: 100%;
         overflow: auto;
-        height: 180px;
+        height: 150px;
         border: 1px solid ${LESS_VARIABLES['emgray-darker']}; /*TODO*/
         margin-left: 0;
     }
