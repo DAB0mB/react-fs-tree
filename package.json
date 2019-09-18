@@ -1,6 +1,6 @@
 {
   "name": "react-fs-tree",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A recursive FS tree React.Component",
   "main": "lib/react-fs-tree.js",
   "files": [
