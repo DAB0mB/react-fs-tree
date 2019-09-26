@@ -42,7 +42,7 @@ const styles = props => (
         width: 100%;
         overflow: auto;
         height: 150px;
-        border: 1px solid ${LESS_VARIABLES['emgray-darker']}; /*TODO*/
+        border: 1px solid ${LESS_VARIABLES['border-color']}; /*TODO*/
         margin-left: 0;
     }
     
