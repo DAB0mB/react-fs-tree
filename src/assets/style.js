@@ -73,7 +73,7 @@ const styles = props => (
     }
     
     .react-em-tree .FSNode-wrap.FSNode-selected > .FSNode-node > .FSNode-descriptor {
-        background-color: #beebff;
+        background-color: #0F56BC;
         border-radius: 2px;
         box-shadow: inset 0 0 1px #999;
         padding: 2px 6px;
@@ -100,7 +100,6 @@ const styles = props => (
         display: inline-block;
         text-align: right;
         line-height: 20px;
-        width: 38px;
         height: 100%;
         user-select: none;
         font-weight: bold;
