@@ -81,9 +81,11 @@ class FSNode extends React.Component {
   constructor(props) {
     super(props)
 
-    this._path = props.parentNode._path + '/' + props.node.name
+    this._type = props.node.type
+    this._path = this._getNodePath();
+    this._subPath = this._getNodeSubPath();
     this._childNodes = []
-
+    
     this.state = {
       node: props.node
     }
@@ -370,6 +372,43 @@ class FSNode extends React.Component {
       this._childNodes.push(ref)
     })
   }
+
+  _getAnchestorWorkFolder = anchestor => {
+    if(anchestor._type === 'workFolder') {
+      return anchestor;
+    }
+
+    return this._getAnchestorWorkFolder(anchestor.props.parentNode);
+  }
+
+  _getWorkFolderPath = () => {
+    return this.props.parentNode._path + '/' + this.props.node.name;
+  }
+
+  _getSubWorkFodlerPath = () => {
+    const anchestor = this._getAnchestorWorkFolder(this.props.parentNode);
+    return anchestor.path;
+  }
+
+  _getNodePath = () => {
+    switch (this._type) {
+      case 'workFolder': return this._getWorkFolderPath();
+      case 'subWorkFolder': return this._getSubWorkFodlerPath();
+      default: return ('/');
+    }
+  }
+
+  _getSubPath = () => {
+    return 'to be done'
+  }
+
+  _getNodeSubPath = () => {
+    if(this._type === 'subWorkFolder') {
+      return this._getSubPath()
+    }
+    return null;
+  }
+
 }
 
 exports.FSNode = FSNode
