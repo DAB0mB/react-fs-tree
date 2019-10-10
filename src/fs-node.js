@@ -83,6 +83,7 @@ class FSNode extends React.Component {
 
     this._type = props.node.type
     this._path = this._getNodePath();
+    this._physicalPath = this._getPhysicalPath();
     this._subPath = this._getNodeSubPath();
     this._childNodes = []
     
@@ -399,7 +400,7 @@ class FSNode extends React.Component {
   }
 
   _getSubPath = () => {
-    return 'to be done'
+    return this._physicalPath.substr(this._path.length, this._physicalPath.length);
   }
 
   _getNodeSubPath = () => {
@@ -407,6 +408,22 @@ class FSNode extends React.Component {
       return this._getSubPath()
     }
     return null;
+  }
+
+  _composePhysicalPath = (node, path) => {
+    const _physicalPath = `${node.props.node.name}/${path}`;
+    if(node.props.parentNode._type === 'workFolder') {
+      return `${this._path}/${_physicalPath}`;
+    }
+    return this._composePhysicalPath(node.props.parentNode, _physicalPath);
+  }
+
+  _getPhysicalPath = () => {
+    switch (this._type) {
+      case 'workFolder': return this._path;
+      case 'subWorkFolder': return this._composePhysicalPath(this, '');
+      default: return ('/');
+    }
   }
 
 }
