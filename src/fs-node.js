@@ -405,7 +405,7 @@ class FSNode extends React.Component {
   }
 
   _composePhysicalPath = (node, path) => {
-    const _physicalPath = `${node.props.node.name}/${path}`;
+    const _physicalPath = `${node.props.node.name}${path && '/'+ path}`;
     if(node.props.parentNode._type === 'workFolder') {
       return `${this._path}/${_physicalPath}`;
     }
