@@ -19,7 +19,7 @@ class FSNode extends React.Component {
     onClose: PropTypes.func,
     onOpen: PropTypes.func,
     onOpenChange: PropTypes.func,
-    hasChildNodes: PropTypes.bool
+    hasChildNodes: PropTypes.bool.isRequired
   }
 
   static defaultProps = {
@@ -63,7 +63,7 @@ class FSNode extends React.Component {
   }
 
   get path() {
-    return this._path
+    return this._physicalPath
   }
 
   get name() {
@@ -307,6 +307,8 @@ class FSNode extends React.Component {
 
   _getIcon = () => {
     const Caret = !this.state.opened ? Icons.CaretRight : Icons.CaretDown;
+    const type = this._type.toLowerCase().charAt(0).toUpperCase() + this._type.toLowerCase().slice(1)
+    const IconType = Icons[type];
     if (!this.props.node.childNodes) {
       switch (this.state.mode) {
         case 'a': return (
@@ -330,22 +332,14 @@ class FSNode extends React.Component {
         default: return <Icons.File onClick={!this.props.noninteractive && (() => this.toggleSelect())}/>
       }
     } else if ( !this.props.hasChildNodes ) {
-
-      /**
-       * The prop hasChildNodes is passed as an attribute of `childNodes` object.
-       * It maps the `childCount` property contained in the response of workfolder response.
-       **/
-
       return (  
-        <span><Icons.Workfolder /></span>
+        <span><IconType /></span>
       );
-
     }
-
     return (
       <span>
         <Caret />
-        <Icons.Workfolder />
+        <IconType />
       </span>
     )
 
