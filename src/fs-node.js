@@ -63,7 +63,7 @@ class FSNode extends React.Component {
   }
 
   get path() {
-    return this._physicalPath
+    return this._path
   }
 
   get name() {
@@ -76,6 +76,14 @@ class FSNode extends React.Component {
 
   get selected() {
     return this.state.selected
+  }
+
+  get physicalPath() {
+    return this._physicalPath
+  }
+
+  get subPath() {
+    return this._subPath
   }
 
   constructor(props) {
