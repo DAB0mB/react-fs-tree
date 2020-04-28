@@ -17,7 +17,8 @@ class FSBranch extends React.Component {
     onClose: PropTypes.func,
     onOpen: PropTypes.func,
     onOpenChange: PropTypes.func,
-    hasChildNodes: PropTypes.bool
+    hasChildNodes: PropTypes.bool,
+    nodesCanToggle: PropTypes.bool
   }
 
   static defaultProps = {
@@ -89,6 +90,7 @@ class FSBranch extends React.Component {
                   onClose={this.props.onClose}
                   onOpen={this.props.onOpen}
                   onOpenChange={this.props.onOpenChange}
+                  nodesCanToggle={this.props.nodesCanToggle}
                 />
               </li>
             );

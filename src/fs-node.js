@@ -19,7 +19,8 @@ class FSNode extends React.Component {
     onClose: PropTypes.func,
     onOpen: PropTypes.func,
     onOpenChange: PropTypes.func,
-    hasChildNodes: PropTypes.bool.isRequired
+    hasChildNodes: PropTypes.bool.isRequired,
+    nodesCanToggle: PropTypes.bool
   }
 
   static defaultProps = {
@@ -32,6 +33,7 @@ class FSNode extends React.Component {
     onClose: () => {},
     onOpen: () => {},
     onOpenChange: () => {},
+    nodesCanToggle: true
   }
 
   get depth() {
@@ -145,6 +147,7 @@ class FSNode extends React.Component {
                 onOpen={this.props.onOpen}
                 onClose={this.props.onClose}
                 onOpenChange={this.props.onOpenChange}
+                nodesCanToggle={this.props.nodesCanToggle}
               />
             )}
           </div>
@@ -220,7 +223,10 @@ class FSNode extends React.Component {
   }
 
   toggleSelect(onToggle) {
-    return this.state.selected ? this.deselect(onToggle) : this.select(onToggle)
+    if(this.props.nodesCanToggle) {
+        return this.state.selected ? this.deselect(onToggle) : this.select(onToggle)
+    }
+    this.select(onToggle)
   }
 
   close(onClose = () => {}) {
