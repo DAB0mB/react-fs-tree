@@ -91,6 +91,7 @@ class FSBranch extends React.Component {
                   onOpen={this.props.onOpen}
                   onOpenChange={this.props.onOpenChange}
                   nodesCanToggle={this.props.nodesCanToggle}
+                  index={i}
                 />
               </li>
             );

@@ -13,7 +13,7 @@ const styles = props => (
         height: 16px;
         overflow: visible;
         vertical-align: -2px;
-        margin-right: 5px;
+        margin-right: 7px;
     }
     
     .react-em-tree .rfst-icon-file {
@@ -49,22 +49,23 @@ const styles = props => (
     .react-em-tree .FSBranch-node-list {
         margin: 0;
         padding: 0;
-        margin-top: 5px;
         list-style-type: none;
     }
     
     .react-em-tree .FSBranch-node-list-item {
-        margin-bottom: 5px;
+        padding: 0 10px;
     }
     
     .react-em-tree .FSNode {
         width: 100%;
-        height: 20px;
+        min-height: 20px;
         display: inline-block;
     }
     
     .react-em-tree .FSNode-wrap {
         height: 100%;
+        border-top: 1px solid #efefef;
+        padding: 5px 0 0;
     }
     
     .react-em-tree .FSNode-wrap.FSNode-selected {
@@ -73,30 +74,33 @@ const styles = props => (
     }
     
     .react-em-tree .FSNode-wrap.FSNode-selected > .FSNode-node > .FSNode-descriptor {
-        background-color: #0F56BC;
-        border-radius: 2px;
-        box-shadow: inset 0 0 1px #999;
-        padding: 2px 6px;
+        color: #0F56BC;
     }
 
     .react-em-tree .FSNode-wrap.FSNode-selected > .FSNode-node > .FSNode-descriptor .FSNode-text {
-        color: #FFFFFF;
+        color: #0F56BC;
+        font-weight: bold;
     }
     
     .react-em-tree .FSNode-wrap.FSNode-deselected {
-        color: #5b6f9d;
+        color: #777777;
     }
     
     .react-em-tree .FSNode-node {
         user-select: none;
         cursor: default;
-        transform: translateY(-2px);
     }
     
     .react-em-tree .FSNode-descriptor {
         white-space: nowrap;
-        display: inline-flex;
-        padding: 2px 6px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-bottom: 5px;
+    }
+
+    .react-em-tree .FSNode-descriptor-container {
+        display: flex;
     }
     
     .react-em-tree .FSNode-icon {
@@ -109,7 +113,17 @@ const styles = props => (
         font-weight: bold;
         transform: translateY(2.5px);
     }
-    
+
+    .react-em-tree .branch-status {
+        margin-right: 10px;
+        cursor: pointer;
+        fill: #505050;
+    }
+
+    .react-em-tree .node-check-icon {
+        color: #0F56BC;
+    }
+
     .react-em-tree .FSNode-mode {
         display: inline-block;
         width: 18px;

@@ -12,12 +12,12 @@ export const File = props  => (
   <svg {...props} aria-hidden="true" data-prefix="fas" data-icon="file" className="rfst-icon rfst-icon-file" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path fill="currentColor" d="M224 136V0H24C10.7 0 0 10.7 0 24v464c0 13.3 10.7 24 24 24h336c13.3 0 24-10.7 24-24V160H248c-13.2 0-24-10.8-24-24zm160-14.1v6.1H256V0h6.1c6.4 0 12.5 2.5 17 7l97.9 98c4.5 4.5 7 10.6 7 16.9z" /></svg>
 )
 
-export const CaretRight = props => (
-  <svg {...props} aria-hidden="true" data-prefix="fas" data-icon="caret-right" className="rfst-icon rfst-icon-caret-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 512"><path fill="currentColor" d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z" /></svg>
+export const CaretClosed = props => (
+    <svg {...props} width={'1em'} height={'1em'} className={'branch-status'} viewBox="0 0 285.3 499.8"><path d="M7.2 59.65L195 249.85 7.2 440.05a44.94 44.94 0 000 48.8c14.4 14.6 33.7 14.6 48.1 0l226.4-229.3c4.8-4.9 4.8-14.6 0-19.5L55.3 10.95c-14.4-14.6-33.7-14.6-48.1 0a44.78 44.78 0 000 48.7z" /></svg>
 )
 
-export const CaretDown = props => (
-  <svg {...props} aria-hidden="true" data-prefix="fas" data-icon="caret-down" className="rfst-icon rfst-icon-caret-down" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z" /></svg>
+export const CaretOpen = props => (
+    <svg {...props} width={'1em'} height={'1em'} className={'branch-status'} viewBox="0 0 512 512"><path d="M65.8 391.5L256 203.6l190.2 187.8c14.8 9.6 33.9 9.6 48.8 0 14.6-14.4 14.6-33.7 0-48.1L265.7 116.9c-4.9-4.8-14.6-4.8-19.5 0L17.1 343.4c-14.6 14.4-14.6 33.7 0 48.1 14.8 9.6 33.9 9.6 48.7 0z" /></svg>
 )
 
 export const Workfolder = props => (
@@ -36,14 +36,19 @@ export const Subworkfolder = props => (
   </svg>
 )
 
+export const Check = props => (
+    <svg {...props} viewBox="0 0 512 512" width={'1em'} height={'1em'} className={'node-check-icon'}><path fill="currentColor" d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z" /></svg>
+)
+
 
 
 export default {
   Folder,
   FolderOpen,
   File,
-  CaretRight,
-  CaretDown,
+  CaretClosed,
+  CaretOpen,
   Workfolder,
-  Subworkfolder
+  Subworkfolder,
+  Check
 }

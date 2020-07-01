@@ -20,7 +20,8 @@ class FSNode extends React.Component {
     onOpen: PropTypes.func,
     onOpenChange: PropTypes.func,
     hasChildNodes: PropTypes.bool.isRequired,
-    nodesCanToggle: PropTypes.bool
+    nodesCanToggle: PropTypes.bool,
+    index: PropTypes.number
   }
 
   static defaultProps = {
@@ -127,11 +128,14 @@ class FSNode extends React.Component {
   render() {
     return (
       <div className="FSNode">
-        <div className={this._getWrapClass()} style={this._getWrapStyle()}>
+        <div className={this._getWrapClass()} style={this._getWrapStyle(this.props.index)}>
           <div className="FSNode-node" style={this._getNodeStyle()}>
             <div className="FSNode-descriptor">
-              <div className="FSNode-icon" onClick={this.props.hasChildNodes ? (() => this.toggleOpen()) : null }>{this._getIcon()}</div>
-              <div className="FSNode-text" onClick={!this.props.noninteractive ? (() => this.toggleSelect()) : null }>{this.props.node.name}</div>
+                <div className={'FSNode-descriptor-container'}>
+                    <div className="FSNode-icon" onClick={this.props.hasChildNodes ? (() => this.toggleOpen()) : null }>{this._getIcon()}</div>
+                    <div className="FSNode-text" onClick={!this.props.noninteractive ? (() => this.toggleSelect()) : null }>{this.props.node.name}</div>                    
+                </div>
+                {this.state.selected && <Icons.Check />}
             </div>
             {this.props.node.childNodes && this.state.opened && (
               <exports.FSBranch
@@ -294,7 +298,7 @@ class FSNode extends React.Component {
   }
 
   _getDepthSize = (depth = this.depth) => {
-    let padding = 23 * depth
+    let padding = 36 * depth
 
     if (!this.props.node.childNodes) {
       padding += 14
@@ -303,24 +307,27 @@ class FSNode extends React.Component {
     return padding + 'px'
   }
 
-  _getWrapStyle = () => {
-    const translateX = this._getDepthSize(this.depth - 1)
+  _getWrapStyle = i => {
+    const translateX = this._getDepthSize(this.depth - 1);
+    const firstAtAll = this.props.depth === 1 && i === 0;
 
-    return {
-      transform: `translateX(-${translateX})`,
-      width: `calc(100% + ${translateX})`,
-    }
-  }
+    const styles = {
+        transform: `translateX(-${translateX})`,
+        width: `calc(100% + ${translateX})`
+    };
+
+    return (firstAtAll && { ...styles, border: 'none' }) || styles;
+  };
 
   _getNodeStyle = () => {
     return {
       paddingLeft: this._getDepthSize(this.depth),
-      zIndex: this.depth,
+      zIndex: this.depth
     }
   }
 
   _getIcon = () => {
-    const Caret = !this.state.opened ? Icons.CaretRight : Icons.CaretDown;
+    const Caret = !this.state.opened ? Icons.CaretClosed : Icons.CaretOpen;
     const type = this._type.toLowerCase().charAt(0).toUpperCase() + this._type.toLowerCase().slice(1)
     const IconType = Icons[type];
     if (!this.props.node.childNodes) {
