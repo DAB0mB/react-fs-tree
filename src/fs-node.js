@@ -129,11 +129,11 @@ class FSNode extends React.Component {
     return (
       <div className="FSNode">
         <div className={this._getWrapClass()} style={this._getWrapStyle(this.props.index)}>
-          <div className="FSNode-node" style={this._getNodeStyle()}>
-            <div className="FSNode-descriptor">
-                <div className={'FSNode-descriptor-container'}>
-                    <div className="FSNode-icon" onClick={this.props.hasChildNodes ? (() => this.toggleOpen()) : null }>{this._getIcon()}</div>
-                    <div className="FSNode-text" onClick={!this.props.noninteractive ? (() => this.toggleSelect()) : null }>{this.props.node.name}</div>                    
+          <div className="FSNode-node">
+            <div className="FSNode-descriptor"  onClick={!this.props.noninteractive ? this.handleSelection : undefined }>
+                <div className={'FSNode-descriptor-container'} style={this._getNodeStyle()}>
+                    <div className="FSNode-icon" onClick={this.props.hasChildNodes ? this.handleToggleOpen : undefined }>{this._getIcon()}</div>
+                    <div className="FSNode-text">{this.props.node.name}</div>                    
                 </div>
                 {this.state.selected && <Icons.Check />}
             </div>
@@ -233,6 +233,11 @@ class FSNode extends React.Component {
     this.select(onToggle)
   }
 
+  handleSelection = e => {
+      e.stopPropagation()
+      this.toggleSelect()
+  }
+
   close(onClose = () => {}) {
     const callback = (resolve = Promise.resolve.bind(Promise)) => {
       this.props.onClose(this)
@@ -291,15 +296,22 @@ class FSNode extends React.Component {
     return this.state.opened ? this.close(onToggle) : this.open(onToggle)
   }
 
+  handleToggleOpen = e => {
+      e.stopPropagation()
+      this.toggleOpen();
+  }
+
   _getWrapClass = () => {
     const selected = this.state.selected ? 'FSNode-selected' : 'FSNode-deselected'
 
     return `FSNode-wrap ${selected}`
   }
 
-  _getDepthSize = () => {
-    const padding = 36;
-    return (this.props.hasChildNodes && padding - 24) || padding;
+  _getDepthSize = (depth = this.depth) => {
+    const baseSpacing = 16;
+    const depthSize = 25;
+    const padding = baseSpacing + (depthSize * depth);
+    return (this.props.hasChildNodes && padding - depthSize) || padding;
   }
 
   _getWrapStyle = i => {

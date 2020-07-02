@@ -44,16 +44,13 @@ const styles = props => (
         height: 150px;
         border: 1px solid ${LESS_VARIABLES['border-color']}; /*TODO*/
         margin-left: 0;
+        padding: 0 10px;
     }
     
     .react-em-tree .FSBranch-node-list {
         margin: 0;
         padding: 0;
         list-style-type: none;
-    }
-    
-    .react-em-tree .FSBranch-node-list-item {
-        padding: 0 10px;
     }
     
     .react-em-tree .FSNode {
@@ -65,9 +62,24 @@ const styles = props => (
     .react-em-tree .FSNode-wrap {
         height: 100%;
         border-top: 1px solid #efefef;
-        padding: 5px 0 0;
     }
     
+    .react-em-tree .FSNode-wrap > .FSNode-node > .FSNode-descriptor:hover {
+        background-color: #0F56BC;
+    }
+
+    .react-em-tree .FSNode-wrap > .FSNode-node > .FSNode-descriptor:hover .FSNode-text,
+    .react-em-tree .FSNode-wrap > .FSNode-node > .FSNode-descriptor:hover .FSNode-icon,
+    .react-em-tree .FSNode-wrap > .FSNode-node > .FSNode-descriptor:hover .FSNode-icon .branch-status,
+    .react-em-tree .FSNode-wrap > .FSNode-node > .FSNode-descriptor:hover .node-check-icon,
+    .react-em-tree .FSNode-wrap.FSNode-selected > .FSNode-node > .FSNode-descriptor:hover .FSNode-text,
+    .react-em-tree .FSNode-wrap.FSNode-selected > .FSNode-node > .FSNode-descriptor:hover .FSNode-icon .branch-status,
+    .react-em-tree .FSNode-wrap.FSNode-selected > .FSNode-node > .FSNode-descriptor:hover node-check-icon, 
+    .react-em-tree .FSNode-wrap.FSNode-selected > .FSNode-node > .FSNode-descriptor:hover .FSNode-icon {
+        color: #fff;
+        fill: #fff;
+    }
+
     .react-em-tree .FSNode-wrap.FSNode-selected {
         color: white;
         background-color: transparent;
@@ -96,11 +108,13 @@ const styles = props => (
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding-bottom: 5px;
+        cursor: pointer;
+        padding: 3px 0;
     }
 
     .react-em-tree .FSNode-descriptor-container {
         display: flex;
+        flex-grow: 1;
     }
     
     .react-em-tree .FSNode-icon {
@@ -122,6 +136,7 @@ const styles = props => (
 
     .react-em-tree .node-check-icon {
         color: #0F56BC;
+        margin-right: 10px;
     }
 
     .react-em-tree .FSNode-mode {
