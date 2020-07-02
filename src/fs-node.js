@@ -297,14 +297,9 @@ class FSNode extends React.Component {
     return `FSNode-wrap ${selected}`
   }
 
-  _getDepthSize = (depth = this.depth) => {
-    let padding = 36 * depth
-
-    if (!this.props.node.childNodes) {
-      padding += 14
-    }
-
-    return padding + 'px'
+  _getDepthSize = () => {
+    const padding = 36;
+    return (this.props.hasChildNodes && padding - 24) || padding;
   }
 
   _getWrapStyle = i => {

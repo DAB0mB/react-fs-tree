@@ -5,6 +5,11 @@
   "settings": {
     "react": {
       "version": "15.0"
-    },
-  }
+    }
+  },
+//   "rules": {
+//     // allow console and debugger in development
+//     "no-console": "off",
+//     "no-debugger": "off"
+//   }
 }
