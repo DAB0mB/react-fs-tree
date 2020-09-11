@@ -290,37 +290,41 @@ class FSNode extends React.Component {
     if (!this.state.node.childNodes) {
       switch (this.state.node.mode) {
         case 'a': return (
-          <span onClick={!this.props.noninteractive && (() => this.toggleSelect())}>
-            <span className='FSNode-mode FSNode-mode-a'>A</span>
+          <div className='FSNode-icon-context' onClick={!this.props.noninteractive && (() => this.toggleSelect())}>
+            <div className='FSNode-mode FSNode-mode-a'>A</div>
             <Icons.File />
-          </span>
+          </div>
         )
         case 'd': return (
-          <span onClick={!this.props.noninteractive && (() => this.toggleSelect())}>
-            <span className='FSNode-mode FSNode-mode-d'>D</span>
+          <div className='FSNode-icon-context' onClick={!this.props.noninteractive && (() => this.toggleSelect())}>
+            <div className='FSNode-mode FSNode-mode-d'>D</div>
             <Icons.File />
-          </span>
+          </div>
         )
         case 'm': return (
-          <span onClick={!this.props.noninteractive && (() => this.toggleSelect())}>
-            <span className='FSNode-mode FSNode-mode-m'>M</span>
+          <div className='FSNode-icon-context' onClick={!this.props.noninteractive && (() => this.toggleSelect())}>
+            <div className='FSNode-mode FSNode-mode-m'>M</div>
             <Icons.File />
-          </span>
+          </div>
         )
-        default: return <Icons.File onClick={!this.props.noninteractive && (() => this.toggleSelect())}/>
+        default: return (
+          <div className='FSNode-icon-context'>
+            <Icons.File onClick={!this.props.noninteractive && (() => this.toggleSelect())}/>
+          </div>
+        )
       }
     }
 
     return !this.state.node.opened ? (
-      <span>
+      <div className='FSNode-icon-context'>
         <Icons.CaretRight />
         <Icons.Folder />
-      </span>
+      </div>
     ) : (
-      <span>
+      <div className='FSNode-icon-context'>
         <Icons.CaretDown />
         <Icons.FolderOpen />
-      </span>
+      </div>
     )
   }
 

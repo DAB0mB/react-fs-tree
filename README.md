@@ -57,6 +57,18 @@ I can also notify you on...
 
 - **onOpenChange(node)**
 
+If you really want, you can change my colors with the **theme** prop, using the following variables:
+
+- **theme.primary**
+
+- **theme.selectedBackground**
+
+- **theme.selectedText**
+
+- **theme.modeA**
+
+- **theme.modeD**
+
 Each of my nodes is an entity of its own and will do exactly what you tell it to:
 
 - **node.open()** - Will open the node.

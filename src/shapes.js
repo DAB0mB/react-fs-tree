@@ -13,6 +13,15 @@ export const Node = (() => {
   return PropTypes.shape(shape)
 })()
 
+export const Theme = PropTypes.shape({
+  primary: PropTypes.string,
+  selectedBackground: PropTypes.string,
+  selectedText: PropTypes.string,
+  modeA: PropTypes.string,
+  modeD: PropTypes.string,
+})
+
 export default {
-  Node
+  Node,
+  Theme,
 }

@@ -11,7 +11,8 @@ export const FSNode = exports.FSNode
 
 export class FSRoot extends React.Component {
   static propTypes = {
-    childNodes: PropTypes.arrayOf(PropTypes.shape(Shapes.node)),
+    childNodes: PropTypes.arrayOf(Shapes.Node),
+    theme: Shapes.Theme,
     noninteractive: PropTypes.bool,
     onSelect: PropTypes.func,
     onDeselect: PropTypes.func,
@@ -51,6 +52,14 @@ export class FSRoot extends React.Component {
   }
 
   render() {
+    const {
+      primary = '#5b6f9d',
+      selectedBackground = '#4c84ff',
+      selectedText = '#ffffff',
+      modeA = '#356611',
+      modeD = '#951b1b',
+    } = this.props.theme || {}
+
     return (
       <div className="FSRoot">
         <style dangerouslySetInnerHTML={{ __html: `
@@ -109,66 +118,67 @@ export class FSRoot extends React.Component {
           }
 
           .FSNode-wrap.FSNode-selected {
-            color: white;
-            background-color: #4c84ff;
+            color: ${selectedText};
+            background-color: ${selectedBackground};
           }
 
           .FSNode-wrap.FSNode-deselected {
-            color: #5b6f9d;
+            color: ${primary};
           }
 
           .FSNode-node {
             user-select: none;
             cursor: default;
-            transform: translateY(-2px);
+            height: 100%;
           }
 
           .FSNode-descriptor {
             display: flex;
+            align-items: center;
             white-space: nowrap;
+            height: 100%;
           }
 
           .FSNode-icon {
             cursor: ${this.props.noninteractive ? 'default' : 'pointer'};
-            display: inline-block;
-            text-align: right;
-            line-height: 20px;
             width: 38px;
             height: 100%;
             user-select: none;
             font-weight: bold;
-            transform: translateY(2.5px);
+          }
+
+          .FSNode-icon-context {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
           }
 
           .FSNode-mode {
             display: inline-block;
             width: 18px;
             height: 18px;
-            line-height: 18px;
             text-align: center;
             font-weight: 800;
-            margin-left: -26px;
-            margin-right: -0.5px;
-            color: #5b6f9d;
+            color: ${primary};
           }
 
           .FSNode-mode.FSNode-mode-a {
-            color: #356611;
+            color: ${modeA};
           }
 
           .FSNode-mode.FSNode-mode-d {
-            color: #951b1b;
+            color: ${modeD};
           }
 
           .FSNode-wrap.FSNode-selected .FSNode-mode {
-            color: white;
+            color: ${selectedText};
           }
 
           .FSNode-text {
             cursor: ${this.props.noninteractive ? 'default' : 'pointer'};
             font-weight: bold;
             display: inline-block;
-            line-height: 23px;
             height: 100%;
             user-select: none;
             text-overflow: ellipsis;
