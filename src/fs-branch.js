@@ -57,8 +57,18 @@ class FSBranch extends React.Component {
   constructor(props) {
     super(props)
 
-    this._path = props.parentNode._path + '/'
+    this.state = {
+      childNodes: props.childNodes,
+    }
+
+    this._path = props.parentNode.path + '/'
     this._childNodes = []
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      childNodes: nextProps.childNodes,
+    })
   }
 
   componentWillUpdate() {
@@ -69,7 +79,7 @@ class FSBranch extends React.Component {
     return (
       <div className="FSBranch">
         <ul className="FSBranch-node-list">
-          {this.props.childNodes.map((node, i) => (
+          {this.state.childNodes.map((node, i) => (
             <li key={`${i}_${node.name}`} className="FSBranch-node-list-item">
               <exports.FSNode
                 ref={ref => ref && this._childNodes.push(ref)}

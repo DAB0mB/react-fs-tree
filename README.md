@@ -65,6 +65,8 @@ If you really want, you can change my colors with the **theme** prop, using the 
 
 - **theme.selectedText**
 
+- **theme.modeM**
+
 - **theme.modeA**
 
 - **theme.modeD**
@@ -115,6 +117,4 @@ If you like what you see you can install me with `npm`:
 
     $ npm install react-fs-tree
 
-And since I have an **MIT** license feel free to use me!
-
-<p align="right"><img src="https://user-images.githubusercontent.com/7648874/47303417-6bdd5900-d656-11e8-97e3-058f03d158db.jpg" alt="mit"></p>
+Feel free to use me (MIT license)!

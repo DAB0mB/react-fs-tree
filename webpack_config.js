@@ -29,5 +29,5 @@ module.exports = {
       }
     ]
   },
-  externals: [nodeExternals()]
+  externals: [nodeExternals(), 'react', 'react-dom', 'prop-types']
 }

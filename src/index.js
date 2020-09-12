@@ -5,6 +5,7 @@ import './fs-branch'
 import './fs-node'
 import { exports } from './module'
 import Shapes from './shapes'
+import { walkTogether } from './utils'
 
 export const FSBranch = exports.FSBranch
 export const FSNode = exports.FSNode
@@ -43,8 +44,32 @@ export class FSRoot extends React.Component {
   constructor(props) {
     super(props)
 
+    this.state = {
+      childNodes: this.props.childNodes,
+    }
+
     this._path = '~'
     this._childNodes = []
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const nextChildNodesStr = JSON.stringify(nextProps.childNodes)
+    const currChildNodesStr = JSON.stringify(this.props.childNodes)
+
+    if (nextChildNodesStr === currChildNodesStr) {
+      return;
+    }
+
+    const state = { childNodes: JSON.parse(nextChildNodesStr) }
+
+    walkTogether(state.childNodes, this._childNodes, (target, source) => {
+      if (!source) return
+
+      target.opened = source.opened
+      target.selected = source.selected
+    })
+
+    this.setState(state)
   }
 
   componentWillUpdate() {
@@ -56,6 +81,7 @@ export class FSRoot extends React.Component {
       primary = '#5b6f9d',
       selectedBackground = '#4c84ff',
       selectedText = '#ffffff',
+      modeM = '#5b6f9d',
       modeA = '#356611',
       modeD = '#951b1b',
     } = this.props.theme || {}
@@ -68,7 +94,6 @@ export class FSRoot extends React.Component {
             font-size: inherit;
             height: 16px;
             overflow: visible;
-            vertical-align: -2px;
             margin-right: 5px;
           }
 
@@ -160,7 +185,7 @@ export class FSRoot extends React.Component {
             height: 18px;
             text-align: center;
             font-weight: 800;
-            color: ${primary};
+            color: ${modeM};
           }
 
           .FSNode-mode.FSNode-mode-a {
@@ -186,6 +211,7 @@ export class FSRoot extends React.Component {
         ` }} />
         <FSBranch
           {...this.props}
+          childNodes={this.state.childNodes}
           ref={ref => ref && (this._childNodes = ref._childNodes)}
           parentNode={this}
           root={this}

@@ -97,6 +97,12 @@ class FSNode extends React.Component {
     this._mounted = true
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      node: nextProps.node,
+    })
+  }
+
   componentWillUpdate() {
     this._childNodes = []
   }
@@ -282,7 +288,6 @@ class FSNode extends React.Component {
   _getNodeStyle = () => {
     return {
       paddingLeft: this._getDepthSize(this.depth),
-      zIndex: this.depth,
     }
   }
 
