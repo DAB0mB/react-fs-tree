@@ -4,6 +4,7 @@ import React from 'react'
 import Icons from './icons'
 import { exports } from './module'
 import Shapes from './shapes'
+import { someNodes } from './utils'
 
 class FSNode extends React.Component {
   static propTypes = {
@@ -125,6 +126,7 @@ class FSNode extends React.Component {
             <div className="FSNode-descriptor">
               <div className="FSNode-icon" onClick={!this.props.noninteractive && (() => this.toggleOpen())}>{this._getIcon()}</div>
               <div className="FSNode-text" onClick={!this.props.noninteractive && (() => this.toggleSelect())}>{this.state.node.name}</div>
+              <div className="FSNode-mode" onClick={!this.props.noninteractive && (() => this.toggleSelect())}>{this._getMode()}</div>
             </div>
             {this.state.node.childNodes && this.state.node.opened && (
               <exports.FSBranch
@@ -294,44 +296,48 @@ class FSNode extends React.Component {
 
   _getIcon = () => {
     if (!this.state.node.childNodes) {
+      return (
+        <div className='FSNode-icon-context' onClick={!this.props.noninteractive && (() => this.toggleSelect())}>
+          <Icons.File />
+        </div>
+      )
+    }
+
+    return (
+      <div className='FSNode-icon-context'>
+        {this.state.node.opened ? <Icons.CaretDown /> : <Icons.CaretRight />}
+        <Icons.Folder />
+      </div>
+    )
+  }
+
+  _getMode = () => {
+    if (!this.state.node.childNodes) {
       switch (this.state.node.mode) {
+        case 'm': return (
+          <div className='FSNode-mode FSNode-mode-m'>±</div>
+        )
         case 'a': return (
-          <div className='FSNode-icon-context' onClick={!this.props.noninteractive && (() => this.toggleSelect())}>
-            <div className='FSNode-mode FSNode-mode-a'>A</div>
-            <Icons.File />
-          </div>
+          <div className='FSNode-mode FSNode-mode-a'>+</div>
         )
         case 'd': return (
-          <div className='FSNode-icon-context' onClick={!this.props.noninteractive && (() => this.toggleSelect())}>
-            <div className='FSNode-mode FSNode-mode-d'>D</div>
-            <Icons.File />
-          </div>
+          <div className='FSNode-mode FSNode-mode-d'>-</div>
         )
-        case 'm': return (
-          <div className='FSNode-icon-context' onClick={!this.props.noninteractive && (() => this.toggleSelect())}>
-            <div className='FSNode-mode FSNode-mode-m'>M</div>
-            <Icons.File />
-          </div>
-        )
-        default: return (
-          <div className='FSNode-icon-context' onClick={!this.props.noninteractive && (() => this.toggleSelect())}>
-            <Icons.File />
-          </div>
-        )
+        default: return null
       }
     }
 
-    return !this.state.node.opened ? (
-      <div className='FSNode-icon-context'>
-        <Icons.CaretRight />
-        <Icons.Folder />
-      </div>
-    ) : (
-      <div className='FSNode-icon-context'>
-        <Icons.CaretDown />
-        <Icons.FolderOpen />
-      </div>
-    )
+    const someAdditions = someNodes(this.state.node.childNodes, n => n.mode === 'a')
+    const someDeletions = someNodes(this.state.node.childNodes, n => n.mode === 'd')
+    const someModifications = (someAdditions && someDeletions) || someNodes(this.state.node.childNodes, n => n.mode === 'm')
+
+    return someModifications ? (
+      <div className='FSNode-mode FSNode-mode-m'>±</div>
+    ) : someAdditions ? (
+      <div className='FSNode-mode FSNode-mode-a'>+</div>
+    ) : someDeletions ? (
+      <div className='FSNode-mode FSNode-mode-d'>-</div>
+    ) : null;
   }
 
   _createVirtualChildNodes() {

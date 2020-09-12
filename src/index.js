@@ -186,6 +186,7 @@ export class FSRoot extends React.Component {
             height: 18px;
             text-align: center;
             font-weight: 800;
+            cursor: pointer;
             color: ${modeM};
           }
 
@@ -203,6 +204,7 @@ export class FSRoot extends React.Component {
 
           .FSNode-text {
             flex: 1;
+            overflow: hidden;
             cursor: ${this.props.noninteractive ? 'default' : 'pointer'};
             font-weight: bold;
             display: inline-block;

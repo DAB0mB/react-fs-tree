@@ -9,3 +9,15 @@ export const walkTogether = (target, source, cb) => {
     }
   })
 }
+
+export const someNodes = (target, cb) => {
+  return target.some((targetNode) => {
+    if (cb(targetNode)) {
+      return true
+    }
+
+    if (targetNode.childNodes) {
+      return someNodes(targetNode.childNodes, cb)
+    }
+  })
+}
