@@ -129,6 +129,7 @@ export class FSRoot extends React.Component {
           }
 
           .FSBranch-node-list-item {
+            display: flex;
             margin-bottom: 15px;
           }
 
@@ -201,6 +202,7 @@ export class FSRoot extends React.Component {
           }
 
           .FSNode-text {
+            flex: 1;
             cursor: ${this.props.noninteractive ? 'default' : 'pointer'};
             font-weight: bold;
             display: inline-block;

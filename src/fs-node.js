@@ -314,8 +314,8 @@ class FSNode extends React.Component {
           </div>
         )
         default: return (
-          <div className='FSNode-icon-context'>
-            <Icons.File onClick={!this.props.noninteractive && (() => this.toggleSelect())}/>
+          <div className='FSNode-icon-context' onClick={!this.props.noninteractive && (() => this.toggleSelect())}>
+            <Icons.File />
           </div>
         )
       }
