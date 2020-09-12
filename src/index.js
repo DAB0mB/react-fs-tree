@@ -196,7 +196,7 @@ export class FSRoot extends React.Component {
             color: ${modeD};
           }
 
-          .FSNode-wrap.FSNode-selected .FSNode-mode {
+          .FSNode-wrap.FSNode-selected.FSNode-file .FSNode-mode {
             color: ${selectedText};
           }
 

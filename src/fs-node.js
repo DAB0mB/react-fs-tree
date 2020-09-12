@@ -262,8 +262,9 @@ class FSNode extends React.Component {
 
   _getWrapClass = () => {
     const selected = this.state.node.selected ? 'FSNode-selected' : 'FSNode-deselected'
+    const type = this.state.node.childNodes ? 'FSNode-dir' : 'FSNode-file'
 
-    return `FSNode-wrap ${selected}`
+    return `FSNode-wrap ${selected} ${type}`
   }
 
   _getDepthSize = (depth = this.depth) => {
