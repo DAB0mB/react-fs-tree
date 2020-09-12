@@ -65,13 +65,13 @@ class FSBranch extends React.Component {
     this._childNodes = []
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     this.setState({
       childNodes: nextProps.childNodes,
     })
   }
 
-  componentWillUpdate() {
+  UNSAFE_componentWillUpdate() {
     this._childNodes = []
   }
 

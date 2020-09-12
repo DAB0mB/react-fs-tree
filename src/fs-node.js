@@ -97,13 +97,13 @@ class FSNode extends React.Component {
     this._mounted = true
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     this.setState({
       node: nextProps.node,
     })
   }
 
-  componentWillUpdate() {
+  UNSAFE_componentWillUpdate() {
     this._childNodes = []
   }
 

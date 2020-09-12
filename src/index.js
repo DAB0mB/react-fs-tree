@@ -52,7 +52,7 @@ export class FSRoot extends React.Component {
     this._childNodes = []
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const nextChildNodesStr = JSON.stringify(nextProps.childNodes)
     const currChildNodesStr = JSON.stringify(this.props.childNodes)
 
@@ -72,7 +72,7 @@ export class FSRoot extends React.Component {
     this.setState(state)
   }
 
-  componentWillUpdate() {
+  UNSAFE_componentWillUpdate() {
     this._childNodes = []
   }
 
