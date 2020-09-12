@@ -129,7 +129,6 @@ export class FSRoot extends React.Component {
           }
 
           .FSBranch-node-list-item {
-            display: flex;
             margin-bottom: 15px;
           }
 
@@ -190,15 +189,15 @@ export class FSRoot extends React.Component {
             color: ${modeM};
           }
 
-          .FSNode-mode.FSNode-mode-a {
+          .FSNode-mode > .FSNode-mode-a {
             color: ${modeA};
           }
 
-          .FSNode-mode.FSNode-mode-d {
+          .FSNode-mode > .FSNode-mode-d {
             color: ${modeD};
           }
 
-          .FSNode-wrap.FSNode-selected.FSNode-file .FSNode-mode {
+          .FSNode-wrap.FSNode-selected > .FSNode-node > .FSNode-descriptor > .FSNode-mode > * {
             color: ${selectedText};
           }
 

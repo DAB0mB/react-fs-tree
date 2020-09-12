@@ -315,13 +315,13 @@ class FSNode extends React.Component {
     if (!this.state.node.childNodes) {
       switch (this.state.node.mode) {
         case 'm': return (
-          <div className='FSNode-mode FSNode-mode-m'>±</div>
+          <div className='FSNode-mode-m'>±</div>
         )
         case 'a': return (
-          <div className='FSNode-mode FSNode-mode-a'>+</div>
+          <div className='FSNode-mode-a'>+</div>
         )
         case 'd': return (
-          <div className='FSNode-mode FSNode-mode-d'>-</div>
+          <div className='FSNode-mode-d'>-</div>
         )
         default: return null
       }
@@ -332,11 +332,11 @@ class FSNode extends React.Component {
     const someModifications = (someAdditions && someDeletions) || someNodes(this.state.node.childNodes, n => n.mode === 'm')
 
     return someModifications ? (
-      <div className='FSNode-mode FSNode-mode-m'>±</div>
+      <div className='FSNode-mode-m'>±</div>
     ) : someAdditions ? (
-      <div className='FSNode-mode FSNode-mode-a'>+</div>
+      <div className='FSNode-mode-a'>+</div>
     ) : someDeletions ? (
-      <div className='FSNode-mode FSNode-mode-d'>-</div>
+      <div className='FSNode-mode-d'>-</div>
     ) : null;
   }
 
